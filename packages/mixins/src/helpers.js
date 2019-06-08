@@ -1,6 +1,9 @@
 'use strict';
 
 import Builder from './Builder';
+import bareMixin from './decorators/bareMixin';
+import hasInstanceMixin from './decorators/hasInstanceMixin';
+import cachedMixin from './decorators/cachedMixin';
 
 /**
  * Original Mixin reference
@@ -35,3 +38,18 @@ export const wrap = (mixin, wrapper) => {
  * @returns {Builder}
  */
 export const mix = (superClass) => new Builder(superClass);
+
+/**
+ * Declare a mixin class
+ *
+ * @param {Function} mixin
+ *
+ * @returns {Function}
+ */
+export const declare = (mixin) => {
+    return cachedMixin(
+        hasInstanceMixin(
+            bareMixin(mixin)
+        )
+    );
+};
