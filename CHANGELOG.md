@@ -5,4 +5,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [0.2.0](https://github.com/aedart/symbi/compare/0.1.0...0.2.0) (2019-06-08)
 
-**Note:** Version bump only for package @aedart/symbi-root
+**Note:** Version bump only for package @aedart/symbi-mono-repo
