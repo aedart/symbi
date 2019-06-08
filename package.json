@@ -9,7 +9,8 @@
     "test-min": "./node_modules/karma/bin/karma start --browsers ChromeHeadless",
     "version": "./node_modules/lerna/cli.js version --conventional-commits --no-push --yes",
     "bootstrap": "./node_modules/lerna/cli.js bootstrap",
-    "publish": "./node_modules/lerna/cli.js publish from-git"
+    "publish": "./node_modules/lerna/cli.js publish from-git",
+    "create-pgk": "./node_modules/lerna/cli.js create"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
