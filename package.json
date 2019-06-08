@@ -12,6 +12,7 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "babel-loader": "^8.0.6",
+    "faker": "^4.1.0",
     "jasmine": "^3.4.0",
     "karma": "^4.1.0",
     "karma-babel-preprocessor": "^8.0.0",
