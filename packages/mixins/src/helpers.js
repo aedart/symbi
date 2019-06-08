@@ -1,5 +1,7 @@
 'use strict';
 
+import Builder from './Builder';
+
 /**
  * Original Mixin reference
  *
@@ -24,3 +26,12 @@ export const wrap = (mixin, wrapper) => {
 
     return wrapper;
 };
+
+/**
+ * Mix a super class with one or more mixins
+ *
+ * @param {Function} [superClass = class {}]
+ *
+ * @returns {Builder}
+ */
+export const mix = (superClass) => new Builder(superClass);
