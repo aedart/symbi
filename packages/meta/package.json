@@ -1,0 +1,24 @@
+{
+  "name": "@aedart/meta",
+  "version": "0.2.2",
+  "description": "Stores meta data of various kinds about given target classes or methods",
+  "keywords": [
+    "meta",
+    "reflection"
+  ],
+  "author": "Alin Eugen Deac <aedart@gmail.com>",
+  "homepage": "https://github.com/aedart/symbi#readme",
+  "license": "BSD-3-Clause",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aedart/symbi.git"
+  },
+  "scripts": {},
+  "bugs": {
+    "url": "https://github.com/aedart/symbi/issues"
+  }
+}
