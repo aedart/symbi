@@ -9,9 +9,6 @@
   "homepage": "https://github.com/aedart/symbi#readme",
   "license": "BSD-3-Clause",
   "main": "index.js",
-  "directories": {
-
-  },
   "publishConfig": {
     "access": "public"
   },
