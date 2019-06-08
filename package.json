@@ -1,5 +1,5 @@
 {
-  "name": "@aedart/symbi-root",
+  "name": "@aedart/symbi-mono-repo",
   "private": true,
   "workspaces": [
     "packages/*"
