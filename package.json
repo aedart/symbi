@@ -7,7 +7,7 @@
   "scripts": {
     "test": "./node_modules/karma/bin/karma start --browsers Chrome,Firefox",
     "test-min": "./node_modules/karma/bin/karma start --browsers ChromeHeadless",
-    "version": "./node_modules/lerna/cli.js version"
+    "version": "./node_modules/lerna/cli.js version --conventional-commits"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
