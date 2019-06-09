@@ -1,5 +1,8 @@
 // Karma configuration
 
+// Webpack configuration
+const webpackConfig = require('./webpack.config.js');
+
 // Set the CHROME_BIN env
 process.env.CHROME_BIN = require('puppeteer').executablePath();
 
@@ -79,9 +82,7 @@ module.exports = function(config) {
     // how many browser should be started simultaneous
     concurrency: Infinity,
 
-    webpack: {
-      // Webpack config
-    },
+    webpack: webpackConfig,
 
     webpackMiddleware: {
       // webpack-dev-middleware configuration
