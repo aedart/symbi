@@ -1,11 +1,9 @@
 # `@aedart/meta`
 
-> TODO: description
+Container that stores arbitrary data about classes and methods.
 
-## Usage
+For additional documentation, please review [Symbi](https://github.com/aedart/symbi).
 
-```
-const meta = require('@aedart/meta');
+## License
 
-// TODO: DEMONSTRATE API
-```
+[BSD 3-Clause](https://spdx.org/licenses/BSD-3-Clause)  
