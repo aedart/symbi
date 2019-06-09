@@ -10,6 +10,10 @@ export {
 
 // Meta Data
 import Data from './src/meta/Data';
+import ClassData from './src/meta/ClassData';
+import MethodData from './src/meta/MethodData';
 export {
-    Data
+    Data,
+    ClassData,
+    MethodData
 };
