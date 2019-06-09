@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/aedart/symbi/compare/v0.2.2...v0.3.0) (2019-06-09)
+
+
+### Bug Fixes
+
+* **root:** add from-git arg. to publish script ([48d5744](https://github.com/aedart/symbi/commit/48d5744))
+* **root:** webpack not using babel presets ([aaa09e6](https://github.com/aedart/symbi/commit/aaa09e6))
+
+
+
+
+
 ## [0.2.2](https://github.com/aedart/symbi/compare/v0.2.1...v0.2.2) (2019-06-08)
 
 
