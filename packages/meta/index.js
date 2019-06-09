@@ -23,3 +23,5 @@ import DependenciesAware from './src/mixins/DependenciesAware';
 export { DependenciesAware };
 
 // Default
+import Meta from './src/Meta';
+export default Meta;
