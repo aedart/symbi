@@ -17,3 +17,9 @@ export {
     ClassData,
     MethodData
 };
+
+// Mixins
+import DependenciesAware from './src/mixins/DependenciesAware';
+export { DependenciesAware };
+
+// Default
