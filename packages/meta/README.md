@@ -2,7 +2,9 @@
 
 Container that stores arbitrary data about classes and methods.
 
-For additional documentation, please review [Symbi](https://github.com/aedart/symbi).
+# Official Documentation
+
+Please read the [official documentation](https://aedart.github.io/symbi/) for additional information.
 
 ## License
 
