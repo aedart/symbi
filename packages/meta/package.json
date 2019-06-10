@@ -1,6 +1,6 @@
 {
   "name": "@aedart/meta",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Stores meta data of various kinds about given target classes or methods",
   "keywords": [
     "meta",
