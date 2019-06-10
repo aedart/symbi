@@ -8,6 +8,15 @@
   "command": {
     "publish": {
       "message": "chore(release): publish %s"
+    },
+    "create": {
+      "homepage": "https://github.com/aedart/symbi#readme",
+      "license": "BSD-3-Clause"
+    },
+    "version": {
+      "allowBranch": "master",
+      "conventionalCommits": true,
+      "message": "chore(release): %s"
     }
   }
 }
