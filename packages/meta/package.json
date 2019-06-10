@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/aedart/symbi/issues"
   },
-  "peerDependencies": {
-    "@aedart/mixins": "^0.2.2"
+  "dependencies": {
+    "@aedart/mixins": "^0.3.0"
   }
 }
