@@ -1,3 +1,3 @@
-# Packages
+# Introduction
 
-TODO: general information about the packages...
+In this section, you will find general documentation on each available package.
