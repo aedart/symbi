@@ -12,7 +12,8 @@
     "publish": "./node_modules/lerna/cli.js publish from-git",
     "create-pgk": "./node_modules/lerna/cli.js create",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "docs:publish": "./deploy-docs.sh"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
