@@ -47,7 +47,7 @@ module.exports = {
 function generatePackagesSideBar () {
     return [
         {
-            title: 'Getting Started',
+            title: 'Packages',
             collapsable: true,
             children: [
                 '',
@@ -58,6 +58,9 @@ function generatePackagesSideBar () {
             collapsable: true,
             children: [
                 'mixins/',
+                'mixins/declare',
+                'mixins/mix',
+                'mixins/inherit',
             ]
         }
     ]
