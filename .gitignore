@@ -4,10 +4,12 @@ Thumbs.db
 temp/*
 
 yarn.lock
+lerna-debug.log
+package-lock.json
 /node_modules
 .build/
 
-# Ignore internal todo-list
+# Ignore internal todo-list (if any)
 .todo.md
 
 # Ignore various environment files in root directory

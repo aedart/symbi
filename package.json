@@ -1,5 +1,9 @@
 {
-  "name": "symbi",
+  "name": "@aedart/symbi",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "version": "0.5.0",
   "description": "Symbi is a mono repository; a collection of various JavaScript packages.",
   "main": "index.js",
@@ -18,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/aedart/symbi/issues"
   },
-  "homepage": "https://github.com/aedart/symbi#readme"
+  "homepage": "https://github.com/aedart/symbi#readme",
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
 }
