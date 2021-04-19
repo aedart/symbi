@@ -1,7 +1,18 @@
 .DS_Store
 .idea/
 Thumbs.db
+temp/*
+
 yarn.lock
-lerna-debug.log
 /node_modules
 .build/
+
+# Ignore internal todo-list
+.todo.md
+
+# Ignore various environment files in root directory
+.env
+.testing
+.production
+.locale
+.development
