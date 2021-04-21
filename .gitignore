@@ -9,6 +9,8 @@ package-lock.json
 /node_modules
 .build/
 
+packages/*/dist/*
+
 # Ignore internal todo-list (if any)
 .todo.md
 

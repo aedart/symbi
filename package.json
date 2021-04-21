@@ -1,19 +1,7 @@
 {
   "name": "@aedart/symbi",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "version": "0.5.0",
   "description": "Symbi is a mono repository; a collection of various JavaScript packages.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aedart/symbi.git"
-  },
   "keywords": [
     "Symbi"
   ],
@@ -23,7 +11,23 @@
     "url": "https://github.com/aedart/symbi/issues"
   },
   "homepage": "https://github.com/aedart/symbi#readme",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aedart/symbi.git"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "clean": "lerna clean",
+    "compile": "lerna run compile",
+    "test": "jest"
+  },
   "devDependencies": {
+    "jest": "^26.6.3",
     "lerna": "^4.0.0"
   }
 }
