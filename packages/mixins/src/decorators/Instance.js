@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-import {ORIGINAL} from "~/helpers/Wrapper";
-import {MIXIN_REF} from "~/decorators/Bare";
+import { ORIGINAL } from '~/helpers/Wrapper';
+import { MIXIN_REF } from '~/decorators/Bare';
 
 /**
  * Checks whether the given instance is part of the
@@ -15,7 +15,7 @@ import {MIXIN_REF} from "~/decorators/Bare";
  */
 const checkInstance = function (instance) {
     // Obtain reference to original
-    let original = this[ORIGINAL];
+    const original = this[ORIGINAL];
 
     // Abort if no original reference available,
     // it cannot be an instance of given

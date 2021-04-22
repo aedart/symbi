@@ -1,9 +1,9 @@
 'use strict';
 
-import Builder from "~/Builder";
-import Cached from "~/decorators/Cached";
-import Instance from "~/decorators/Instance";
-import Bare from "~/decorators/Bare";
+import Builder from '~/Builder';
+import Cached from '~/decorators/Cached';
+import Instance from '~/decorators/Instance';
+import Bare from '~/decorators/Bare';
 
 /**
  * Declare a mixin class
@@ -24,7 +24,7 @@ export const declare = (mixin) => {
         Instance(
             Bare(mixin)
         )
-    )
+    );
 };
 
 /**

@@ -11,7 +11,6 @@
  * @author Alin Eugen Deac <aedart@gmail.com>
  */
 export default class Builder {
-
     /**
      * Create new Mixin Builder instance
      *

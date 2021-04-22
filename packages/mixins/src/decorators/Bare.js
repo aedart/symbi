@@ -1,9 +1,6 @@
-"use strict";
+'use strict';
 
-import {
-    ORIGINAL,
-    default as Wrapper
-} from "~/helpers/Wrapper";
+import Wrapper, { ORIGINAL } from '~/helpers/Wrapper';
 
 /**
  * Current mixin reference identifier
@@ -23,7 +20,7 @@ export const MIXIN_REF = Symbol('mixin-reference');
  */
 const Bare = (mixin) => Wrapper.wrap(mixin, (superClass) => {
     // Apply mixin
-    let applied = mixin(superClass);
+    const applied = mixin(superClass);
 
     // Store reference to original mixin
     applied.prototype[MIXIN_REF] = mixin[ORIGINAL];

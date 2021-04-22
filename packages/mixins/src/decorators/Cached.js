@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-import Wrapper from "~/helpers/Wrapper";
+import Wrapper from '~/helpers/Wrapper';
 
 /**
  * Cached mixin reference identifier
@@ -31,7 +31,7 @@ const Cached = (mixin) => Wrapper.wrap(mixin, (superClass) => {
     }
 
     // Finally, decorate super class
-    let decorated = mixin(superClass);
+    const decorated = mixin(superClass);
     superClass[cached] = decorated;
 
     return decorated;
