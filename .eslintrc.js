@@ -22,5 +22,6 @@ module.exports = {
       "named": "never",
       "asyncArrow": "always"
     }],
+    "no-prototype-builtins": "off"
   }
 }
