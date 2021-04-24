@@ -1,6 +1,6 @@
 'use strict';
 
-import Wrapper from '~/helpers/Wrapper';
+import Wrapper from '@mixins/helpers/Wrapper';
 
 /**
  * Cached mixin reference identifier

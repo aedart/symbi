@@ -1,7 +1,7 @@
 'use strict';
 
-import { ORIGINAL } from '~/helpers/Wrapper';
-import { MIXIN_REF } from '~/decorators/Bare';
+import { ORIGINAL } from '@mixins/helpers/Wrapper';
+import { MIXIN_REF } from '@mixins/decorators/Bare';
 
 /**
  * Checks whether the given instance is part of the

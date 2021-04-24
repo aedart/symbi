@@ -1,9 +1,9 @@
 'use strict';
 
-import Builder from '~/Builder';
-import Cached from '~/decorators/Cached';
-import Instance from '~/decorators/Instance';
-import Bare from '~/decorators/Bare';
+import Builder from '@mixins/Builder';
+import Cached from '@mixins/decorators/Cached';
+import Instance from '@mixins/decorators/Instance';
+import Bare from '@mixins/decorators/Bare';
 
 /**
  * Declare a mixin class
