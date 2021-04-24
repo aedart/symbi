@@ -11,7 +11,9 @@
     "url": "https://github.com/aedart/symbi/issues"
   },
   "license": "BSD-3-Clause",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
   "directories": {
     "dist": "dist"
   },
@@ -26,8 +28,8 @@
     "url": "git+https://github.com/aedart/symbi.git"
   },
   "scripts": {
-    "compile": "babel src --out-dir dist --source-maps --delete-dir-on-start",
-    "watch": "babel src --watch --out-dir dist --delete-dir-on-start",
+    "compile": "rollup -c",
+    "watch": "rollup -c -w",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "devDependencies": {
