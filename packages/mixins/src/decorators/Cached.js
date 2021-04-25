@@ -17,22 +17,18 @@ export const CACHED_REF = Symbol('cached-mixin-reference');
  * @return {Function}
  */
 const Cached = (mixin) => Wrapper.wrap(mixin, (superClass) => {
-    // Get the cached reference
-    let cached = mixin[CACHED_REF];
-
-    // Create cached reference, if none was obtained
+    // Get or create cached reference map
+    let cached = superClass[CACHED_REF];
     if (!cached) {
-        cached = mixin[CACHED_REF] = Symbol(mixin.name);
+        cached = superClass[CACHED_REF] = new WeakMap();
     }
 
-    // Abort if super class already has mixin
-    if (superClass.hasOwnProperty(cached)) {
-        return superClass[cached];
+    // Get cached mixin, if available
+    let decorated = cached.get(mixin);
+    if (!decorated) {
+        decorated = mixin(superClass);
+        cached.set(mixin, decorated);
     }
-
-    // Finally, decorate super class
-    const decorated = mixin(superClass);
-    superClass[cached] = decorated;
 
     return decorated;
 });

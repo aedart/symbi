@@ -2,7 +2,7 @@
 
 import Builder from '@mixins/Builder';
 import Cached from '@mixins/decorators/Cached';
-import Instance from '@mixins/decorators/Instance';
+import HasInstance from '@mixins/decorators/HasInstance';
 import Bare from '@mixins/decorators/Bare';
 
 /**
@@ -21,7 +21,7 @@ import Bare from '@mixins/decorators/Bare';
  */
 export const declare = (mixin) => {
     return Cached(
-        Instance(
+        HasInstance(
             Bare(mixin)
         )
     );

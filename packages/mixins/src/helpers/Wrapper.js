@@ -5,7 +5,7 @@
  *
  * @type {symbol}
  */
-export const ORIGINAL = Symbol('original-mixin');
+export const WRAPPED_MIXIN = Symbol('wrapped-mixin');
 
 /**
  * Wrapper
@@ -24,10 +24,21 @@ export default class Wrapper {
     static wrap(mixin, wrapper) {
         Object.setPrototypeOf(wrapper, mixin);
 
-        if (!mixin.hasOwnProperty(ORIGINAL)) {
-            mixin[ORIGINAL] = mixin;
+        if (!mixin[WRAPPED_MIXIN]) {
+            mixin[WRAPPED_MIXIN] = mixin;
         }
 
         return wrapper;
+    }
+
+    /**
+     * Unwraps the given wrapper and return original mixin
+     *
+     * @param {Function} wrapper
+     *
+     * @return {Function} Defaults to given wrapper, if no original mixin is available
+     */
+    static unwrap(wrapper) {
+        return wrapper[WRAPPED_MIXIN] || wrapper;
     }
 }
