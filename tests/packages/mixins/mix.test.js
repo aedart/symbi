@@ -4,6 +4,7 @@ import Player from "../../helpers/dummies/mixins/Player";
 import HasArmor from "../../helpers/dummies/mixins/concerns/HasArmor";
 import HasShield from "../../helpers/dummies/mixins/concerns/HasShield";
 import Orc from "../../helpers/dummies/mixins/Orc";
+import mix from "@aedart/mixins";
 
 describe('Mixin builder', () => {
 
@@ -16,7 +17,7 @@ describe('Mixin builder', () => {
         expect(knight.armor).toBe(11);
     });
 
-    it('respects instanceof checks', function () {
+    it('respects instanceof checks', () => {
         let name = faker.name.findName();
         const knight = new Knight(name);
 
@@ -26,6 +27,4 @@ describe('Mixin builder', () => {
         expect(knight).not.toBeInstanceOf(HasShield);
         expect(knight).not.toBeInstanceOf(Orc);
     });
-
-
 });
