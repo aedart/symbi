@@ -58,7 +58,6 @@ const HasInstance = (mixin) => {
     Object.defineProperty(mixin, Symbol.hasInstance, {
         value: (instance) => {
             return hasMixin(instance, mixin);
-            // return checkInstance(instance, mixin);
         }
     });
 
