@@ -28,7 +28,7 @@ export const declare = (mixin) => {
 };
 
 /**
- * Mix a super class with one or more mixins
+ * Mix a base class with one or more mixins
  *
  * Example:
  * ```
@@ -41,10 +41,11 @@ export const declare = (mixin) => {
  * }
  * ```
  *
- * @param {function} [superClass] Defaults to empty class when
- *                                no super class is given
+ * @param {function} [baseClass] Defaults to empty class when
+ *                                no base class is given
+ * @param {...Function} [inheritFrom] Classes to inherit from
  *
  * @return {Builder}
  */
-const mix = (superClass) => new Builder(superClass);
+const mix = (baseClass, ...inheritFrom) => new Builder(baseClass, ...inheritFrom);
 export default mix;
