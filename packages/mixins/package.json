@@ -1,9 +1,10 @@
 {
   "name": "@aedart/mixins",
   "version": "0.5.0",
-  "description": "Mixin utility for classes",
+  "description": "Mixin and multi inheritance utility for classes",
   "keywords": [
-    "Mixin"
+    "Mixin",
+    "Multi inhertitance"
   ],
   "author": "Alin Eugen Deac <aedart@gmail.com>",
   "homepage": "https://github.com/aedart/symbi",
@@ -29,8 +30,7 @@
   },
   "scripts": {
     "compile": "rollup -c",
-    "watch": "rollup -c -w",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "watch": "rollup -c -w"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
