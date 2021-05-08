@@ -20,7 +20,7 @@ const Cached = (mixin) => Wrapper.wrap(mixin, (superClass) => {
     // Get or create cached reference map
     let cached = superClass[CACHED_REF];
     if (!cached) {
-        cached = superClass[CACHED_REF] = new WeakMap();
+        cached = superClass[CACHED_REF] = new Map();
     }
 
     // Get cached mixin, if available

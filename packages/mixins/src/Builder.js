@@ -1,5 +1,7 @@
 'use strict';
 
+import { CACHED_REF } from '@mixins/decorators/Cached';
+
 /**
  * Reference to inherited classes
  *
@@ -73,12 +75,20 @@ export default class Builder {
         const classes = [...from.reverse(), this.baseClass];
 
         // Make the "frame" class
-        const frame = this.makeFrameClass(classes);
+        let frame = this.makeFrameClass(classes);
 
         for (const classFn of classes) {
             // Ensure to copy eventual class properties, methods,...etc into the frame class
             this.copyProperties(frame, classFn);
             this.copyProperties(frame.prototype, classFn.prototype);
+
+            // When the current class inherits other classes that use mixins, then those
+            // mixins might not have been copied / mixed into the frame class. If this is
+            // the case, we manually mix them into the frame class.
+            // @see {Cached} decorator
+            if (classFn[CACHED_REF] !== undefined) {
+                frame = this.mix(frame, ...classFn[CACHED_REF].keys());
+            }
 
             // Define Symbol.hasInstance method, if required (or possible).
             this.defineHasInstanceMethod(classFn);
@@ -98,11 +108,7 @@ export default class Builder {
      * @return {Function} Base class with applied mixins
      */
     with(...mixins) {
-        return mixins.reduce((constructorFn, mixin) => {
-            return (typeof mixin !== 'function')
-                ? constructorFn
-                : mixin(constructorFn);
-        }, this.baseClass);
+        return this.mix(this.baseClass, ...mixins);
     }
 
     /**
@@ -117,6 +123,24 @@ export default class Builder {
     /*****************************************************************
      * Internals
      ****************************************************************/
+
+    /**
+     * Mix into given base class
+     *
+     * @protected
+     *
+     * @param {Function} baseClass
+     * @param {...Function} mixins
+     *
+     * @return {Function}
+     */
+    mix(baseClass, ...mixins) {
+        return mixins.reduce((constructorFn, mixin) => {
+            return (typeof mixin !== 'function')
+                ? constructorFn
+                : mixin(constructorFn);
+        }, baseClass);
+    }
 
     /**
      * Creates a new "frame" class that ensures to invoke the
@@ -167,7 +191,7 @@ export default class Builder {
 
                     // Merge references to evt. already inherited classes by the base class.
                     if (!created.hasOwnProperty(INHERITS_FROM)) {
-                        continue
+                        continue;
                     }
 
                     for (const inherited of created[INHERITS_FROM]) {
