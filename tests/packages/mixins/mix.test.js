@@ -5,6 +5,7 @@ import HasArmor from "../../helpers/dummies/mixins/concerns/HasArmor";
 import HasShield from "../../helpers/dummies/mixins/concerns/HasShield";
 import Orc from "../../helpers/dummies/mixins/Orc";
 import mix from "@aedart/mixins";
+import HasSword from "../../helpers/dummies/mixins/concerns/HasSword";
 
 describe('Mixin builder', () => {
 
@@ -167,6 +168,10 @@ describe('Mixin builder', () => {
             // constructor() {
             //     console.log('A');
             // }
+
+            sayHi() {
+                return 'Hi ' + this.name;
+            }
         }
 
         // Inherits from...
@@ -204,6 +209,7 @@ describe('Mixin builder', () => {
 
         expect(obj.hasOwnProperty('name')).toBeTruthy();
         expect(obj.name).toBe('Timmy');
+        expect(obj.sayHi()).toBe('Hi Timmy');
 
         expect(obj.hasOwnProperty('age')).toBeTruthy();
         expect(obj.age).toBe(age);
@@ -270,5 +276,78 @@ describe('Mixin builder', () => {
 
         expect(objB).toBeInstanceOf(A);
         expect(objB).toBeInstanceOf(B);
+    });
+
+    it('can extend class that inherits and uses mixins', () => {
+        class A {
+            name = 'Sabrina';
+        }
+        class B {
+            age = 29
+        }
+
+        class Z extends mix()
+            .inherit(A, B)
+            .with(HasArmor)
+        {
+
+        }
+
+        class N extends Z {}
+
+        const obj = new N();
+
+        expect(obj).toBeInstanceOf(N);
+        expect(obj).toBeInstanceOf(Z);
+        expect(obj).toBeInstanceOf(A);
+        expect(obj).toBeInstanceOf(B);
+        expect(obj).toBeInstanceOf(HasArmor);
+
+        expect(obj.name).toBe('Sabrina');
+        expect(obj.age).toBe(29);
+        expect(obj.armor).toBe(11);
+    });
+
+    it('can inherits from class that inherits and uses mixins', () => {
+        class A {
+            name = 'Charlie';
+        }
+        class B {
+            age = 34
+        }
+
+        class Z extends mix()
+            .inherit(A, B)
+            .with(
+                HasArmor,
+                HasShield
+            )
+        {
+        }
+
+        class C {
+            address = 'Somewhere Street 42'
+        }
+
+        class T extends mix(C)
+            .inherit(Z)
+            .with(HasSword)
+        {}
+
+        const obj = new T();
+
+        expect(obj).toBeInstanceOf(T);
+        expect(obj).toBeInstanceOf(C);
+        expect(obj).toBeInstanceOf(Z);
+        expect(obj).toBeInstanceOf(A);
+        expect(obj).toBeInstanceOf(B);
+        expect(obj).toBeInstanceOf(HasArmor);
+        expect(obj).toBeInstanceOf(HasShield);
+        expect(obj).toBeInstanceOf(HasSword);
+
+        expect(obj.name).toBe('Charlie');
+        expect(obj.age).toBe(34);
+        expect(obj.armor).toBe(11);
+        expect(obj.damage).toBe(8);
     });
 });
