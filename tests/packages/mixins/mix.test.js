@@ -217,16 +217,58 @@ describe('Mixin builder', () => {
         expect(obj.human()).toBeTruthy();
     });
 
-    // NOPE: This is not intended to work!
-    // it('can mixin without extending a base class', () => {
-    //
-    //     class A {};
-    //     class B extends mix().with(A) {}
-    //
-    //     const obj = new B();
-    //
-    //     expect(obj).toBeInstanceOf(B);
-    //     expect(obj).toBeInstanceOf(A);
-    // });
+    it('can inherit and mix', () => {
+        class A {
+            name = 'Thomas';
+        }
+        class B {
+            age = 56
+        }
 
+        class Z extends mix()
+            .inherit(A, B)
+            .with(HasArmor)
+        {
+
+        }
+
+        const obj = new Z();
+
+        expect(obj).toBeInstanceOf(Z);
+        expect(obj).toBeInstanceOf(A);
+        expect(obj).toBeInstanceOf(B);
+        expect(obj).toBeInstanceOf(HasArmor);
+
+        expect(obj.name).toBe('Thomas');
+        expect(obj.age).toBe(56);
+        expect(obj.armor).toBe(11);
+    });
+
+    it('can inherit same class by multiple', function () {
+        class A {
+        }
+        class B {
+        }
+
+        class Z extends mix()
+            .inherit(A, B)
+            .make() {
+
+        }
+
+        class N extends mix()
+            .inherit(A, B)
+            .make() {
+
+        }
+
+        const objA = new Z();
+        const objB = new N();
+
+        expect(objA).toBeInstanceOf(A);
+        expect(objA).toBeInstanceOf(B);
+
+        expect(objB).toBeInstanceOf(A);
+        expect(objB).toBeInstanceOf(B);
+    });
 });
