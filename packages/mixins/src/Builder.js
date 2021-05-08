@@ -168,7 +168,10 @@ export default class Builder {
                     // Merge references to evt. already inherited classes by the base class.
                     if (created.hasOwnProperty(INHERITS_FROM)) {
                         for (const inherited of created[INHERITS_FROM]) {
-                            this[INHERITS_FROM].add(inherited);
+                            // Only add to list of inherited, if not already added...
+                            if (!this[INHERITS_FROM].has(inherited)) {
+                                this[INHERITS_FROM].add(inherited);
+                            }
                         }
                     }
                 }
@@ -223,8 +226,16 @@ export default class Builder {
      */
     copyProperties(target, source) {
         for (const key of Reflect.ownKeys(source)) {
-            // Skip if key is reserved...
+            // Skip if key is reserved and the source is a function.
             if (typeof source === 'function' && Builder.reservedProperties.indexOf(key) !== -1) {
+                continue;
+            }
+
+            // Skip coping inherited from property - not that this does need a special
+            // handling here, or we risk overwriting evt. defined list of inherited.
+            // Furthermore, it does not work adding the symbol to list of reserved
+            // properties because we could then omit too much from being copied!
+            if (key === INHERITS_FROM) {
                 continue;
             }
 
