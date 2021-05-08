@@ -166,12 +166,14 @@ export default class Builder {
                     copyProperties(this, created);
 
                     // Merge references to evt. already inherited classes by the base class.
-                    if (created.hasOwnProperty(INHERITS_FROM)) {
-                        for (const inherited of created[INHERITS_FROM]) {
-                            // Only add to list of inherited, if not already added...
-                            if (!this[INHERITS_FROM].has(inherited)) {
-                                this[INHERITS_FROM].add(inherited);
-                            }
+                    if (!created.hasOwnProperty(INHERITS_FROM)) {
+                        continue
+                    }
+
+                    for (const inherited of created[INHERITS_FROM]) {
+                        // Only add to list of inherited, if not already added...
+                        if (!this[INHERITS_FROM].has(inherited)) {
+                            this[INHERITS_FROM].add(inherited);
                         }
                     }
                 }
