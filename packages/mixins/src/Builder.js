@@ -42,7 +42,8 @@ export default class Builder {
     static reservedProperties = [
         'constructor',
         'prototype',
-        'name'
+        'name',
+        Symbol.hasInstance
     ];
 
     /**
@@ -106,17 +107,23 @@ export default class Builder {
             copyProperties(frame, classFn);
             copyProperties(frame.prototype, classFn.prototype);
 
-            // (Re)define the class' Symbol.hasInstance method, so that we can perform
-            // correct "instanceof" checks.
+            // Skip further processing, if given class already has a Symbol.hasInstance defined.
+            // Perhaps class has already been inherited previously it's "has instance" method is
+            // set - Or a custom Symbol.hasInstance method has been defined, which we must respect.
+            if (classFn.hasOwnProperty(Symbol.hasInstance)) {
+                // console.log('Skipped for ', classFn);
+                continue;
+            }
+
+            // Obtain native Symbol.hasInstance method, so that we can delegate to it.
             const originalHasInstance = classFn[Symbol.hasInstance];
+
+            // Define Symbol.hasInstance method, ...
             Object.defineProperty(classFn, Symbol.hasInstance, {
                 value: function (instance) {
                     // Check if instance has "inherited from" symbol defined and
                     // whether it matches the class exactly...
-                    if (instance[INHERITS_FROM] &&
-                        instance[INHERITS_FROM].has(classFn) &&
-                        classFn === this
-                    ) {
+                    if (instance[INHERITS_FROM] && instance[INHERITS_FROM].has(this)) {
                         return true;
                     }
 
