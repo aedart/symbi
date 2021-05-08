@@ -72,65 +72,16 @@ export default class Builder {
         // Create a list of classes, including the current base class.
         const classes = [...from.reverse(), this.baseClass];
 
-        // Obtain reference to the copy properties method.
-        const copyProperties = this.copyProperties;
-
-        // Create a "Frame" class, which is able to invoke all constructors.
-        // Heavily inspired by Karey Higuera's multi-class.
-        const frame = class {
-            constructor(...args) {
-                // Ensure that all constructors are invoked. This needs to be
-                // done so that properties that are only defined inside constructor
-                // methods are initialised correctly.
-                for (const classFn of classes) {
-                    // Create new instance of the inherited class, pass on evt.
-                    // arguments to it's constructor.
-                    const created = new classFn.prototype.constructor(...args);
-
-                    // Assign the created instance to this frame's prototype,...
-                    Object.assign(
-                        this.constructor.prototype,
-                        created
-                    );
-
-                    // Copy properties that might have been defined in the constructor!
-                    copyProperties(this, created);
-                }
-
-                // Save reference to the classes that this frame class inherits from.
-                this[INHERITS_FROM] = new Set(classes);
-            }
-        };
+        // Make the "frame" class
+        const frame = this.makeFrameClass(classes);
 
         for (const classFn of classes) {
             // Ensure to copy eventual class properties, methods,...etc into the frame class
-            copyProperties(frame, classFn);
-            copyProperties(frame.prototype, classFn.prototype);
+            this.copyProperties(frame, classFn);
+            this.copyProperties(frame.prototype, classFn.prototype);
 
-            // Skip further processing, if given class already has a Symbol.hasInstance defined.
-            // Perhaps class has already been inherited previously it's "has instance" method is
-            // set - Or a custom Symbol.hasInstance method has been defined, which we must respect.
-            if (classFn.hasOwnProperty(Symbol.hasInstance)) {
-                // console.log('Skipped for ', classFn);
-                continue;
-            }
-
-            // Obtain native Symbol.hasInstance method, so that we can delegate to it.
-            const originalHasInstance = classFn[Symbol.hasInstance];
-
-            // Define Symbol.hasInstance method, ...
-            Object.defineProperty(classFn, Symbol.hasInstance, {
-                value: function (instance) {
-                    // Check if instance has "inherited from" symbol defined and
-                    // whether it matches the class exactly...
-                    if (instance[INHERITS_FROM] && instance[INHERITS_FROM].has(this)) {
-                        return true;
-                    }
-
-                    // Default to the original implementation.
-                    return originalHasInstance(instance);
-                }
-            });
+            // Define Symbol.hasInstance method, if required (or possible).
+            this.defineHasInstanceMethod(classFn);
         }
 
         // Overwrite the current base class with the new derived "Frame" class.
@@ -141,8 +92,6 @@ export default class Builder {
 
     /**
      * Mix the base class with one or more mixins (decorators)
-     *
-     * @public
      *
      * @param {...Function} mixins
      *
@@ -168,6 +117,93 @@ export default class Builder {
     /*****************************************************************
      * Internals
      ****************************************************************/
+
+    /**
+     * Creates a new "frame" class that ensures to invoke the
+     * constructors of each given classes
+     *
+     * This method is heavily inspired by Karey Higuera's multi-class
+     * inheritance utility (MIT License).
+     *
+     * @see https://github.com/kbravh/multi-class
+     *
+     * @protected
+     *
+     * @param {Function[]} classes Classes to inherit from
+     *
+     * @return {{new(...[*]=): {}, prototype: {}}}
+     */
+    makeFrameClass(classes) {
+        // Obtain reference to the copy properties method.
+        const copyProperties = this.copyProperties;
+
+        return class {
+            /**
+             * Constructor
+             * @param {...*} [args]
+             */
+            constructor(...args) {
+                // Ensure that all constructors are invoked. This needs to be
+                // done so that properties that are only defined inside constructor
+                // methods are initialised correctly.
+                for (const classFn of classes) {
+                    // Create new instance of the inherited class, pass on evt.
+                    // arguments to it's constructor.
+                    const created = new classFn.prototype.constructor(...args);
+
+                    // Assign the created instance to this frame's prototype,...
+                    Object.assign(
+                        this.constructor.prototype,
+                        created
+                    );
+
+                    // Copy properties that might have been defined in the constructor!
+                    copyProperties(this, created);
+                }
+
+                // Save reference to the classes that this frame class inherits from.
+                // This is used later for defining the Symbol.hasInstance method.
+                // @see Builder.defineHasInstanceMethod
+                this[INHERITS_FROM] = new Set(classes);
+            }
+        };
+    }
+
+    /**
+     * Defines Symbol.hasInstance on given class, if it's not already defined
+     *
+     * @see Builder.makeFrameClass
+     *
+     * @protected
+     *
+     * @param {Function} classFn
+     */
+    defineHasInstanceMethod(classFn) {
+        // Skip further processing, if given class already has a Symbol.hasInstance defined.
+        // Perhaps class has already been inherited previously it's "has instance" method is
+        // set - Or a custom Symbol.hasInstance method has been defined, which we must respect.
+        if (classFn.hasOwnProperty(Symbol.hasInstance)) {
+            return;
+        }
+
+        // Obtain native Symbol.hasInstance method, so that we can delegate to it.
+        const originalHasInstance = classFn[Symbol.hasInstance];
+
+        // Define Symbol.hasInstance method, ...
+        Object.defineProperty(classFn, Symbol.hasInstance, {
+            value: function (instance) {
+                // Check if instance has "inherited from" symbol defined and
+                // whether it matches the class exactly...
+                // NOTE: "this" in this context matches classFn
+                if (instance[INHERITS_FROM] && instance[INHERITS_FROM].has(this)) {
+                    return true;
+                }
+
+                // Default to the original implementation.
+                return originalHasInstance(instance);
+            }
+        });
+    }
 
     /**
      * Copies properties from the source into given
