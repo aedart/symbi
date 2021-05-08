@@ -143,6 +143,11 @@ export default class Builder {
              * @param {...*} [args]
              */
             constructor(...args) {
+                // Save reference to the classes that this frame class inherits from.
+                // This is used later for defining the Symbol.hasInstance method.
+                // @see Builder.defineHasInstanceMethod
+                this[INHERITS_FROM] = new Set(classes);
+
                 // Ensure that all constructors are invoked. This needs to be
                 // done so that properties that are only defined inside constructor
                 // methods are initialised correctly.
@@ -159,12 +164,14 @@ export default class Builder {
 
                     // Copy properties that might have been defined in the constructor!
                     copyProperties(this, created);
-                }
 
-                // Save reference to the classes that this frame class inherits from.
-                // This is used later for defining the Symbol.hasInstance method.
-                // @see Builder.defineHasInstanceMethod
-                this[INHERITS_FROM] = new Set(classes);
+                    // Merge references to evt. already inherited classes by the base class.
+                    if (created.hasOwnProperty(INHERITS_FROM)) {
+                        for (const inherited of created[INHERITS_FROM]) {
+                            this[INHERITS_FROM].add(inherited);
+                        }
+                    }
+                }
             }
         };
     }
