@@ -245,6 +245,10 @@ export default class Builder {
      * Copies properties from the source into given
      * target
      *
+     * Heavily inspired by Eric Faust's mixin utility
+     *
+     * @see https://hacks.mozilla.org/2015/08/es6-in-depth-subclassing/
+     *
      * @protected
      *
      * @param {Function|object} target
