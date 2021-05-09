@@ -17,11 +17,12 @@ const makeBabelConfig = () => {
 /**
  * Returns a "UMD (Universal Module Definition) - (browser)" export setting
  *
+ * @apram {string} name Module name
  * @param {object} config
  *
  * @return {object}
  */
-export const exportUmd = function(config = {}) {
+export const exportUmd = function(name, config = {}) {
     const plugins = [
         peerDepsExternal(),
         resolve(),
@@ -33,7 +34,7 @@ export const exportUmd = function(config = {}) {
     return Object.assign({
         input: 'src/index.js',
         output: {
-            name: 'mixins',
+            name: name,
             file: 'dist/index.umd.js',
             format: 'umd',
             sourcemap: true
