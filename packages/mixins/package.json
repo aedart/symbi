@@ -12,9 +12,9 @@
     "url": "https://github.com/aedart/symbi/issues"
   },
   "license": "BSD-3-Clause",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "browser": "dist/index.umd.js",
+  "main": "dist/mixins.cjs.js",
+  "module": "dist/mixins.esm.js",
+  "browser": "dist/mixins.umd.js",
   "directories": {
     "dist": "dist"
   },

@@ -15,14 +15,24 @@ const makeBabelConfig = () => {
 }
 
 /**
+ * Returns current package.json
+ *
+ * @return {object}
+ */
+const getPackageSchema = () => {
+    const fs = require('fs');
+
+    return JSON.parse(fs.readFileSync('./package.json'));
+}
+
+/**
  * Returns a "UMD (Universal Module Definition) - (browser)" export setting
  *
- * @apram {string} name Module name
  * @param {object} config
  *
  * @return {object}
  */
-export const exportUmd = function(name, config = {}) {
+export const exportUmd = function( config = {}) {
     const plugins = [
         peerDepsExternal(),
         resolve(),
@@ -31,13 +41,21 @@ export const exportUmd = function(name, config = {}) {
         makeBabelConfig()
     ]
 
+    const packageInfo = getPackageSchema();
+    const name = packageInfo.name.split('/')[1];
+
+    // Debug
+    // console.log('UMD module name', name);
+
     return Object.assign({
         input: 'src/index.js',
         output: {
             name: name,
-            file: 'dist/index.umd.js',
+            //file: 'dist/index.umd.js',
+            file: packageInfo.browser,
             format: 'umd',
-            sourcemap: true
+            sourcemap: true,
+            banner: makeBannerText()
         },
         plugins
     }, config);
@@ -57,12 +75,16 @@ export const exportCommonJs = function(config = {}) {
         makeBabelConfig()
     ];
 
+    const packageInfo = getPackageSchema();
+
     return Object.assign({
         input: 'src/index.js',
         output: {
-            file: 'dist/index.cjs.js',
+            //file: 'dist/index.cjs.js',
+            file: packageInfo.main,
             format: 'cjs',
-            sourcemap: true
+            sourcemap: true,
+            banner: makeBannerText()
         },
         plugins
     }, config);
@@ -82,13 +104,37 @@ export const exportEsModule = function(config = {}) {
         makeBabelConfig()
     ];
 
+    const packageInfo = getPackageSchema();
+
     return Object.assign({
         input: 'src/index.js',
         output: {
-            file: 'dist/index.esm.js',
+            // file: 'dist/index.esm.js',
+            file: packageInfo.module,
             format: 'es',
-            sourcemap: true
+            sourcemap: true,
+            banner: makeBannerText()
         },
         plugins
     }, config);
 };
+
+/**
+ * Creates a banner text
+ *
+ * @return {string}
+ */
+export const makeBannerText = function() {
+    const packageInfo = getPackageSchema();
+
+    const name = packageInfo.name;
+    const license = packageInfo.license;
+
+    const date = new Date().getFullYear();
+
+    return `/**
+ * ${name}
+ * 
+ * ${license}, Copyright (c) 2018-${date} Alin Eugen Deac <aedart@gmail.com>
+ */`;
+}

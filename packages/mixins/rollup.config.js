@@ -5,7 +5,7 @@ import {
 } from '../../rollup.common.js';
 
 export default [
-    exportUmd('mixins'),
+    exportUmd(),
     exportCommonJs(),
     exportEsModule()
 ];
