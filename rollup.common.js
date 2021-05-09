@@ -19,7 +19,7 @@ const makeBabelConfig = () => {
  *
  * @return {object}
  */
-const getPackageSchema = () => {
+export const getPackageSchema = () => {
     const fs = require('fs');
 
     return JSON.parse(fs.readFileSync('./package.json'));
