@@ -9,345 +9,359 @@ import HasSword from "../../helpers/dummies/mixins/concerns/HasSword";
 
 describe('Mixin builder', () => {
 
-    it('can mix mixins into class', () => {
-        let name = faker.name.findName();
+    /*****************************************************************
+     * Mixins
+     ****************************************************************/
 
-        const knight = new Knight(name);
+    describe('Mixins', () => {
+        it('can mix mixins into class', () => {
+            let name = faker.name.findName();
 
-        expect(knight.name).toBe(name);
-        expect(knight.armor).toBe(11);
+            const knight = new Knight(name);
+
+            expect(knight.name).toBe(name);
+            expect(knight.armor).toBe(11);
+        });
+
+        it('respects instanceof checks', () => {
+            let name = faker.name.findName();
+            const knight = new Knight(name);
+
+            expect(knight).toBeInstanceOf(Player);
+            expect(knight).toBeInstanceOf(HasArmor);
+
+            expect(knight).not.toBeInstanceOf(HasShield);
+            expect(knight).not.toBeInstanceOf(Orc);
+        });
+
+        it('can extend without mixins', () => {
+
+            class A {};
+            class B extends mix(A).with() {}
+
+            const obj = new B();
+
+            expect(obj).toBeInstanceOf(B);
+            expect(obj).toBeInstanceOf(A);
+        });
     });
 
-    it('respects instanceof checks', () => {
-        let name = faker.name.findName();
-        const knight = new Knight(name);
+    /*****************************************************************
+     * Multi-inheritance
+     ****************************************************************/
 
-        expect(knight).toBeInstanceOf(Player);
-        expect(knight).toBeInstanceOf(HasArmor);
+    describe('Multi-inheritance', () => {
 
-        expect(knight).not.toBeInstanceOf(HasShield);
-        expect(knight).not.toBeInstanceOf(Orc);
-    });
-
-    it('can extend without mixins', () => {
-
-        class A {};
-        class B extends mix(A).with() {}
-
-        const obj = new B();
-
-        expect(obj).toBeInstanceOf(B);
-        expect(obj).toBeInstanceOf(A);
-    });
-
-    it('can inherit from multiple classes', () => {
-        class A {
-            greetings() {
-                return 'Hi';
+        it('can inherit from multiple classes', () => {
+            class A {
+                greetings() {
+                    return 'Hi';
+                }
             }
-        }
-        class B {
-            farewell() {
-                return 'See you later';
+            class B {
+                farewell() {
+                    return 'See you later';
+                }
             }
-        }
-        class C {
-            log() {
-                return 'logging...';
+            class C {
+                log() {
+                    return 'logging...';
+                }
             }
-        }
-        class D {
-            // This should NOT be mixed in, for this test
-        }
-        class E extends C {
-            // This should NOT be mixed in, for this test
-        }
-
-        /**
-         * @extends A
-         * @extends B
-         * @extends C
-         */
-        class Z extends mix(A, B, C).with() {
-            constructor(name) {
-                super();
-                this.name = name;
+            class D {
+                // This should NOT be mixed in, for this test
+            }
+            class E extends C {
+                // This should NOT be mixed in, for this test
             }
 
-            greetings() {
-                return super.greetings() + ' ' + this.name;
+            /**
+             * @extends A
+             * @extends B
+             * @extends C
+             */
+            class Z extends mix(A, B, C).with() {
+                constructor(name) {
+                    super();
+                    this.name = name;
+                }
+
+                greetings() {
+                    return super.greetings() + ' ' + this.name;
+                }
+
+                farewell() {
+                    return super.farewell() + ' ' + this.name;
+                }
             }
 
-            farewell() {
-                return super.farewell() + ' ' + this.name;
+            const obj = new Z('John');
+
+            expect(obj.greetings()).toBe('Hi John');
+            expect(obj.farewell()).toBe('See you later John');
+            expect(obj.log()).toBe('logging...');
+
+            expect(obj).toBeInstanceOf(A);
+            // expect(A.prototype.isPrototypeOf(obj)).toBeTruthy(); // Is NOT going to work!
+
+            expect(obj).toBeInstanceOf(B);
+            // expect(B.prototype.isPrototypeOf(obj)).toBeTruthy(); // Is NOT going to work!
+
+            expect(obj).toBeInstanceOf(C);
+            // expect(C.prototype.isPrototypeOf(obj)).toBeTruthy(); // Is NOT going to work!
+
+            // Not mixed into Z...
+            expect(obj).not.toBeInstanceOf(D);
+
+            // E extends C, but since E is not mixed into Z, it should NOT be instance of E.
+            expect(obj).not.toBeInstanceOf(E);
+        });
+
+        it('invokes all class constructor methods', () => {
+
+            // The inheritance mechanism is not a true multi-inheritance mechanism!
+            // It's is not possible to invoke "super" from the base class and expect
+            // inherited classes' constructor or methods to be invoked.
+            // In other words, inherited classes are just "copied" into the base
+            // class. Still, their constructors should be invoked...
+
+            let aInvoked = false;
+            let bInvoked = false;
+            let cInvoked = false;
+            let zInvoked = false;
+
+            // The base class
+            class A {
+                constructor() {
+                    aInvoked = true;
+                    // console.log('A');
+                }
             }
-        }
 
-        const obj = new Z('John');
-
-        expect(obj.greetings()).toBe('Hi John');
-        expect(obj.farewell()).toBe('See you later John');
-        expect(obj.log()).toBe('logging...');
-
-        expect(obj).toBeInstanceOf(A);
-        // expect(A.prototype.isPrototypeOf(obj)).toBeTruthy(); // Is NOT going to work!
-
-        expect(obj).toBeInstanceOf(B);
-        // expect(B.prototype.isPrototypeOf(obj)).toBeTruthy(); // Is NOT going to work!
-
-        expect(obj).toBeInstanceOf(C);
-        // expect(C.prototype.isPrototypeOf(obj)).toBeTruthy(); // Is NOT going to work!
-
-        // Not mixed into Z...
-        expect(obj).not.toBeInstanceOf(D);
-
-        // E extends C, but since E is not mixed into Z, it should NOT be instance of E.
-        expect(obj).not.toBeInstanceOf(E);
-    });
-
-    it('invokes all class constructor methods', () => {
-
-        // The inheritance mechanism is not a true multi-inheritance mechanism!
-        // It's is not possible to invoke "super" from the base class and expect
-        // inherited classes' constructor or methods to be invoked.
-        // In other words, inherited classes are just "copied" into the base
-        // class. Still, their constructors should be invoked...
-
-        let aInvoked = false;
-        let bInvoked = false;
-        let cInvoked = false;
-        let zInvoked = false;
-
-        // The base class
-        class A {
-            constructor() {
-                aInvoked = true;
-                // console.log('A');
+            // Inherits from...
+            class B {
+                constructor() {
+                    bInvoked = true;
+                    // console.log('B');
+                }
             }
-        }
-
-        // Inherits from...
-        class B {
-            constructor() {
-                bInvoked = true;
-                // console.log('B');
+            class C {
+                constructor() {
+                    cInvoked = true;
+                    // console.log('C');
+                }
             }
-        }
-        class C {
-            constructor() {
-                cInvoked = true;
-                // console.log('C');
+
+            // Final composition
+            class Z extends mix(A)
+                .inherit(B, C)
+                .make()
+            {
+                constructor() {
+                    super();
+                    zInvoked = true;
+                    // console.log('Z');
+                }
             }
-        }
 
-        // Final composition
-        class Z extends mix(A)
-            .inherit(B, C)
-            .make()
-        {
-            constructor() {
-                super();
-                zInvoked = true;
-                // console.log('Z');
+            const obj = new Z('Rick');
+
+            expect(aInvoked).toBeTruthy();
+            expect(bInvoked).toBeTruthy();
+            expect(cInvoked).toBeTruthy();
+            expect(zInvoked).toBeTruthy();
+        });
+
+        it('has inherited all properties', () => {
+            // The base class
+            class A {
+                name = 'Timmy'
+
+                // constructor() {
+                //     console.log('A');
+                // }
+
+                sayHi() {
+                    return 'Hi ' + this.name;
+                }
             }
-        }
 
-        const obj = new Z('Rick');
+            // Inherits from...
+            class B {
+                age = 31;
 
-        expect(aInvoked).toBeTruthy();
-        expect(bInvoked).toBeTruthy();
-        expect(cInvoked).toBeTruthy();
-        expect(zInvoked).toBeTruthy();
-    });
-
-    it('has inherited all properties', () => {
-        // The base class
-        class A {
-            name = 'Timmy'
-
-            // constructor() {
-            //     console.log('A');
-            // }
-
-            sayHi() {
-                return 'Hi ' + this.name;
+                constructor(age = 31) {
+                    this.age = age;
+                    //console.log('B');
+                }
             }
-        }
+            class C {
+                static isHuman = true;
 
-        // Inherits from...
-        class B {
-            age = 31;
-
-            constructor(age = 31) {
-                this.age = age;
-                //console.log('B');
+                // constructor() {
+                //     console.log('C');
+                // }
             }
-        }
-        class C {
-            static isHuman = true;
 
-            // constructor() {
-            //     console.log('C');
-            // }
-        }
+            // Final composition
+            class Z extends mix(A)
+                .inherit(B, C)
+                .make()
+            {
+                speed = 44;
 
-        // Final composition
-        class Z extends mix(A)
-            .inherit(B, C)
-            .make()
-        {
-            speed = 44;
-
-            human() {
-                // Can also be obtained via "Z.isHuman"
-                return this.constructor.isHuman;
+                human() {
+                    // Can also be obtained via "Z.isHuman"
+                    return this.constructor.isHuman;
+                }
             }
-        }
 
-        let age = 43;
-        const obj = new Z(age); // NOTE: argument passed on to class B constructor!
+            let age = 43;
+            const obj = new Z(age); // NOTE: argument passed on to class B constructor!
 
-        expect(obj.hasOwnProperty('name')).toBeTruthy();
-        expect(obj.name).toBe('Timmy');
-        expect(obj.sayHi()).toBe('Hi Timmy');
+            expect(obj.hasOwnProperty('name')).toBeTruthy();
+            expect(obj.name).toBe('Timmy');
+            expect(obj.sayHi()).toBe('Hi Timmy');
 
-        expect(obj.hasOwnProperty('age')).toBeTruthy();
-        expect(obj.age).toBe(age);
+            expect(obj.hasOwnProperty('age')).toBeTruthy();
+            expect(obj.age).toBe(age);
 
-        expect(obj.hasOwnProperty('speed')).toBeTruthy();
-        expect(obj.speed).toBe(44);
+            expect(obj.hasOwnProperty('speed')).toBeTruthy();
+            expect(obj.speed).toBe(44);
 
-        // Static property
-        // expect(A.isHuman).toBeTruthy(); // Mixed into Z - not into A!
-        expect(Z.isHuman).toBeTruthy();
-        expect(obj.human()).toBeTruthy();
-    });
+            // Static property
+            // expect(A.isHuman).toBeTruthy(); // Mixed into Z - not into A!
+            expect(Z.isHuman).toBeTruthy();
+            expect(obj.human()).toBeTruthy();
+        });
 
-    it('can inherit and mix', () => {
-        class A {
-            name = 'Thomas';
-        }
-        class B {
-            age = 56
-        }
+        it('can inherit and mix', () => {
+            class A {
+                name = 'Thomas';
+            }
+            class B {
+                age = 56
+            }
 
-        class Z extends mix()
-            .inherit(A, B)
-            .with(HasArmor)
-        {
+            class Z extends mix()
+                .inherit(A, B)
+                .with(HasArmor)
+            {
 
-        }
+            }
 
-        const obj = new Z();
+            const obj = new Z();
 
-        expect(obj).toBeInstanceOf(Z);
-        expect(obj).toBeInstanceOf(A);
-        expect(obj).toBeInstanceOf(B);
-        expect(obj).toBeInstanceOf(HasArmor);
+            expect(obj).toBeInstanceOf(Z);
+            expect(obj).toBeInstanceOf(A);
+            expect(obj).toBeInstanceOf(B);
+            expect(obj).toBeInstanceOf(HasArmor);
 
-        expect(obj.name).toBe('Thomas');
-        expect(obj.age).toBe(56);
-        expect(obj.armor).toBe(11);
-    });
+            expect(obj.name).toBe('Thomas');
+            expect(obj.age).toBe(56);
+            expect(obj.armor).toBe(11);
+        });
 
-    it('can inherit same class by multiple', function () {
-        class A {
-        }
-        class B {
-        }
+        it('can inherit same class by multiple', function () {
+            class A {
+            }
+            class B {
+            }
 
-        class Z extends mix()
-            .inherit(A, B)
-            .make() {
+            class Z extends mix()
+                .inherit(A, B)
+                .make() {
 
-        }
+            }
 
-        class N extends mix()
-            .inherit(A, B)
-            .make() {
+            class N extends mix()
+                .inherit(A, B)
+                .make() {
 
-        }
+            }
 
-        const objA = new Z();
-        const objB = new N();
+            const objA = new Z();
+            const objB = new N();
 
-        expect(objA).toBeInstanceOf(A);
-        expect(objA).toBeInstanceOf(B);
+            expect(objA).toBeInstanceOf(A);
+            expect(objA).toBeInstanceOf(B);
 
-        expect(objB).toBeInstanceOf(A);
-        expect(objB).toBeInstanceOf(B);
-    });
+            expect(objB).toBeInstanceOf(A);
+            expect(objB).toBeInstanceOf(B);
+        });
 
-    it('can extend class that inherits and uses mixins', () => {
-        class A {
-            name = 'Sabrina';
-        }
-        class B {
-            age = 29
-        }
+        it('can extend class that inherits and uses mixins', () => {
+            class A {
+                name = 'Sabrina';
+            }
+            class B {
+                age = 29
+            }
 
-        class Z extends mix()
-            .inherit(A, B)
-            .with(HasArmor)
-        {
+            class Z extends mix()
+                .inherit(A, B)
+                .with(HasArmor)
+            {
 
-        }
+            }
 
-        class N extends Z {}
+            class N extends Z {}
 
-        const obj = new N();
+            const obj = new N();
 
-        expect(obj).toBeInstanceOf(N);
-        expect(obj).toBeInstanceOf(Z);
-        expect(obj).toBeInstanceOf(A);
-        expect(obj).toBeInstanceOf(B);
-        expect(obj).toBeInstanceOf(HasArmor);
+            expect(obj).toBeInstanceOf(N);
+            expect(obj).toBeInstanceOf(Z);
+            expect(obj).toBeInstanceOf(A);
+            expect(obj).toBeInstanceOf(B);
+            expect(obj).toBeInstanceOf(HasArmor);
 
-        expect(obj.name).toBe('Sabrina');
-        expect(obj.age).toBe(29);
-        expect(obj.armor).toBe(11);
-    });
+            expect(obj.name).toBe('Sabrina');
+            expect(obj.age).toBe(29);
+            expect(obj.armor).toBe(11);
+        });
 
-    it('can inherits from class that inherits and uses mixins', () => {
-        class A {
-            name = 'Charlie';
-        }
-        class B {
-            age = 34
-        }
+        it('can inherits from class that inherits and uses mixins', () => {
+            class A {
+                name = 'Charlie';
+            }
+            class B {
+                age = 34
+            }
 
-        class Z extends mix()
-            .inherit(A, B)
-            .with(
-                HasArmor,
-                HasShield
-            )
-        {
-        }
+            class Z extends mix()
+                .inherit(A, B)
+                .with(
+                    HasArmor,
+                    HasShield
+                )
+            {
+            }
 
-        class C {
-            address = 'Somewhere Street 42'
-        }
+            class C {
+                address = 'Somewhere Street 42'
+            }
 
-        class T extends mix(C)
-            .inherit(Z)
-            .with(HasSword)
-        {}
+            class T extends mix(C)
+                .inherit(Z)
+                .with(HasSword)
+            {}
 
-        const obj = new T();
+            const obj = new T();
 
-        expect(obj).toBeInstanceOf(T);
-        expect(obj).toBeInstanceOf(C);
-        expect(obj).toBeInstanceOf(Z);
-        expect(obj).toBeInstanceOf(A);
-        expect(obj).toBeInstanceOf(B);
-        expect(obj).toBeInstanceOf(HasArmor);
-        expect(obj).toBeInstanceOf(HasShield);
-        expect(obj).toBeInstanceOf(HasSword);
+            expect(obj).toBeInstanceOf(T);
+            expect(obj).toBeInstanceOf(C);
+            expect(obj).toBeInstanceOf(Z);
+            expect(obj).toBeInstanceOf(A);
+            expect(obj).toBeInstanceOf(B);
+            expect(obj).toBeInstanceOf(HasArmor);
+            expect(obj).toBeInstanceOf(HasShield);
+            expect(obj).toBeInstanceOf(HasSword);
 
-        expect(obj.name).toBe('Charlie');
-        expect(obj.age).toBe(34);
-        expect(obj.armor).toBe(11);
-        expect(obj.damage).toBe(8);
+            expect(obj.name).toBe('Charlie');
+            expect(obj.age).toBe(34);
+            expect(obj.armor).toBe(11);
+            expect(obj.damage).toBe(8);
+        });
+
     });
 });
