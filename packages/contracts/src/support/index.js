@@ -4,4 +4,5 @@
  * Support
  ****************************************************************/
 
-export * as support from './support/index';
+import Stringable from "./Stringable";
+export { Stringable };
