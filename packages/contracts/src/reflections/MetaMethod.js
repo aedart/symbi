@@ -1,4 +1,4 @@
-import MetaFunction from "./MetaFunction";
+import MetaFunction from './MetaFunction';
 
 /**
  * Meta Method
@@ -10,7 +10,6 @@ import MetaFunction from "./MetaFunction";
  * @interface
  */
 export default class MetaMethod extends MetaFunction {
-
     /**
      * The class that declares the parameter
      *

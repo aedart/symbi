@@ -1,4 +1,4 @@
-import Meta from "./Meta";
+import Meta from './Meta';
 
 /**
  * Meta Function
@@ -8,7 +8,6 @@ import Meta from "./Meta";
  * @interface
  */
 export default class MetaFunction extends Meta {
-
     /**
      * Name of the function
      *

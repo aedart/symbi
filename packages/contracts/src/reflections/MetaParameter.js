@@ -1,4 +1,4 @@
-import Meta from "./Meta";
+import Meta from './Meta';
 
 /**
  * Meta Parameter
@@ -8,7 +8,6 @@ import Meta from "./Meta";
  * @interface
  */
 export default class MetaParameter extends Meta {
-
     /**
      * Name of the parameter
      *

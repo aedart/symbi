@@ -1,4 +1,4 @@
-import Meta from "./Meta";
+import Meta from './Meta';
 
 /**
  * Meta Class

@@ -4,5 +4,5 @@
  * Support
  ****************************************************************/
 
-import Stringable from "./Stringable";
+import Stringable from './Stringable';
 export { Stringable };

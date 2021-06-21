@@ -1,4 +1,4 @@
-import Stringable from "@contracts/support/Stringable";
+import Stringable from '@contracts/support/Stringable';
 
 /**
  * Meta
