@@ -1,5 +1,5 @@
 System.config({
     "paths": {
-        "@mixins/*": "./src/*"
+        "@contracts/*": "./src/*"
     }
 });
