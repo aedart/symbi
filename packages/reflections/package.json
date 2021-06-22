@@ -1,0 +1,45 @@
+{
+  "name": "@aedart/reflections",
+  "version": "0.5.0",
+  "description": "Meta Reflections",
+  "keywords": [
+    "Meta",
+    "Reflections"
+  ],
+  "author": "Alin Eugen Deac <aedart@gmail.com>",
+  "homepage": "https://github.com/aedart/symbi",
+  "bugs": {
+    "url": "https://github.com/aedart/symbi/issues"
+  },
+  "license": "BSD-3-Clause",
+  "main": "dist/reflections.cjs.js",
+  "module": "dist/reflections.esm.js",
+  "browser": "dist/reflections.umd.js",
+  "directories": {
+    "dist": "dist"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aedart/symbi.git"
+  },
+  "scripts": {
+    "compile": "rollup -c",
+    "watch": "rollup -c -w"
+  },
+  "peerDependencies": {
+    "@aedart/contracts": "^0.5.0",
+    "@aedart/mixins": "^0.5.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.13.15",
+    "babel-plugin-module-resolver": "^4.1.0"
+  }
+}
