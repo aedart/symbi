@@ -21,6 +21,14 @@ export default class MethodMeta extends mix(FunctionMeta)
     metaParent;
 
     /**
+     * State whether meta is for a class constructor method
+     * or not
+     *
+     * @type {boolean|undefined}
+     */
+    definedMetaForConstructor;
+
+    /**
      * MethodMeta
      *
      * @param {ClassMeta} meta The class meta that this method meta belongs to
@@ -52,6 +60,10 @@ export default class MethodMeta extends mix(FunctionMeta)
      * @return {boolean}
      */
     isConstructor() {
+        if (this.definedMetaForConstructor !== undefined) {
+            return this.definedMetaForConstructor;
+        }
+
         const target = this.parent.target;
         if (!target) {
             return false;
@@ -62,6 +74,8 @@ export default class MethodMeta extends mix(FunctionMeta)
             return false;
         }
 
-        return Reflect.has(proto, 'constructor') && proto.constructor === this.target;
+        this.definedMetaForConstructor = Reflect.has(proto, 'constructor') && proto.constructor === this.target;
+
+        return this.definedMetaForConstructor;
     }
 }
