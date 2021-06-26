@@ -46,15 +46,6 @@ export default class ClassMeta extends Meta {
     hasMethods() {}
 
     /**
-     * Amount of class methods
-     *
-     * @public
-     *
-     * @return {number}
-     */
-    get methodsCount() {}
-
-    /**
      * Determine if class has constructor method declared
      *
      * @public

@@ -35,13 +35,4 @@ export default class FunctionMeta extends Meta {
      * @return {boolean}
      */
     hasParameters() {}
-
-    /**
-     * Returns amount of function parameters
-     *
-     * @public
-     *
-     * @return {number}
-     */
-    get parametersCount() {}
 }
