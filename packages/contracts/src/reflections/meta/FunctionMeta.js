@@ -43,5 +43,5 @@ export default class FunctionMeta extends Meta {
      *
      * @return {number}
      */
-    parametersCount() {}
+    get parametersCount() {}
 }
