@@ -14,7 +14,7 @@ export default class FunctionMeta extends Meta {
      *
      * @public
      *
-     * @return {string|undefined}
+     * @return {string|null}
      */
     get name() {}
 
