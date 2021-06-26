@@ -14,6 +14,7 @@ import ParameterMeta from './reflections/meta/ParameterMeta';
 
 import Builder from './reflections/builders/Builder';
 import ClassBuilder from './reflections/builders/ClassBuilder';
+import MethodBuilder from './reflections/builders/MethodBuilder';
 import FunctionBuilder from './reflections/builders/FunctionBuilder';
 
 /*****************************************************************
@@ -37,6 +38,7 @@ export {
     ParameterMeta,
     Builder,
     ClassBuilder,
+    MethodBuilder,
     FunctionBuilder,
 
     // Support
