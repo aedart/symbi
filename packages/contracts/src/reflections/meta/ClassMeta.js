@@ -32,7 +32,7 @@ export default class ClassMeta extends Meta {
      *
      * @public
      *
-     * @return {MethodMeta|undefined}
+     * @return {MethodMeta|null}
      */
     get constructorMethod() {}
 
