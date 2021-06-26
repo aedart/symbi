@@ -1,13 +1,14 @@
-import Meta from './Meta';
+import { Meta } from './Meta';
 
 /**
- * Meta Function
+ * Function Meta
  *
- * Contains meta information about a function
+ * Provides meta information about a function
  *
  * @interface
+ * @extends Meta
  */
-export default class MetaFunction extends Meta {
+export default class FunctionMeta extends Meta {
     /**
      * Name of the function
      *
@@ -22,7 +23,7 @@ export default class MetaFunction extends Meta {
      *
      * @public
      *
-     * @return {MetaParameter[]}
+     * @return {ParameterMeta[]}
      */
     get parameters() {}
 

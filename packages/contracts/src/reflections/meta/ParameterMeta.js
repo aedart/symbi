@@ -1,30 +1,40 @@
-import Meta from './Meta';
+import { Meta } from './Meta';
 
 /**
- * Meta Parameter
+ * Function Parameter Meta
  *
- * Contains meta information about a method or function's parameter
+ * Provides meta information about a function's parameter
  *
  * @interface
+ * @extends Meta
  */
-export default class MetaParameter extends Meta {
+export default class ParameterMeta extends Meta {
+    /**
+     * The function meta that this method meta belongs to
+     *
+     * @public
+     *
+     * @return {FunctionMeta}
+     */
+    get functionMeta() {}
+
     /**
      * Name of the parameter
      *
      * @public
      *
-     * @return {string}
+     * @return {string|null}
      */
     get name() {}
 
     /**
-     * Datatype of parameter
+     * Datatype(s) of parameter
      *
      * @public
      *
-     * @return {*}
+     * @return {*[]}
      */
-    get type() {}
+    get types() {}
 
     /**
      * Default value for parameter
@@ -36,22 +46,22 @@ export default class MetaParameter extends Meta {
     get defaultValue() {}
 
     /**
-     * The function (or method) that declares the parameter
-     *
-     * @public
-     *
-     * @return {MetaFunction}
-     */
-    get declaringFunction() {}
-
-    /**
-     * Determine if a type has been specified for parameter
+     * Determine if one or more types has been specified for parameter
      *
      * @public
      *
      * @return {boolean}
      */
-    hasType() {}
+    hasTypes() {}
+
+    /**
+     * Determine if parameter is required
+     *
+     * @public
+     *
+     * @return {boolean}
+     */
+    isRequired() {}
 
     /**
      * Determine if parameter is optional

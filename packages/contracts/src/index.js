@@ -4,10 +4,34 @@
  * Reflections
  ****************************************************************/
 
-export * as reflections from './reflections/index';
+import MetaReflection, { META_REFLECTION_SYMBOL } from './reflections/MetaReflection';
+
+import { Meta } from './reflections/meta/Meta';
+import ClassMeta from './reflections/meta/ClassMeta';
+import MethodMeta from './reflections/meta/MethodMeta';
+import FunctionMeta from './reflections/meta/FunctionMeta';
+import ParameterMeta from './reflections/meta/ParameterMeta';
 
 /*****************************************************************
  * Support
  ****************************************************************/
 
-export * as support from './support/index';
+import Stringable from './support/Stringable';
+
+/*****************************************************************
+ * Exports
+ ****************************************************************/
+
+export {
+    // Reflections (Meta)
+    MetaReflection,
+    META_REFLECTION_SYMBOL,
+    Meta,
+    ClassMeta,
+    MethodMeta,
+    FunctionMeta,
+    ParameterMeta,
+
+    // Support
+    Stringable
+};

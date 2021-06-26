@@ -1,13 +1,14 @@
-import Meta from './Meta';
+import { Meta } from './Meta';
 
 /**
- * Meta Class
+ * Class Meta
  *
- * Contains meta information about a class
+ * Provides meta information about a class
  *
  * @interface
+ * @extends Meta
  */
-export default class MetaClass extends Meta {
+export default class ClassMeta extends Meta {
     /**
      * Name of the class
      *
@@ -22,7 +23,7 @@ export default class MetaClass extends Meta {
      *
      * @public
      *
-     * @return {MetaMethod[]}
+     * @return {MethodMeta[]}
      */
     get methods() {}
 
@@ -31,7 +32,7 @@ export default class MetaClass extends Meta {
      *
      * @public
      *
-     * @return {MetaMethod|undefined}
+     * @return {MethodMeta|undefined}
      */
     get constructorMethod() {}
 
@@ -60,5 +61,5 @@ export default class MetaClass extends Meta {
      *
      * @return {boolean}
      */
-    hasConstructorMethod() {}
+    hasConstructor() {}
 }
