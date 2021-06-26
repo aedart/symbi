@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import eslint from '@rollup/plugin-eslint';
 import babel from '@rollup/plugin-babel';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import cleanup from 'rollup-plugin-cleanup';
 
 /**
  * Returns configured babel plugin
@@ -13,6 +14,20 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 const makeBabelConfig = () => {
     return babel({ babelHelpers: 'bundled' })
 }
+
+/**
+ * Returns configured "cleanup" plugin
+ *
+ * @param {Object} [config]
+ *
+ * @return {Plugin}
+ */
+const makeCleanupConfig = (config = {}) => {
+    return cleanup(Object.assign({
+        comments: 'all',
+        compactComments: true
+    }, config));
+};
 
 /**
  * Returns current package.json
@@ -38,7 +53,8 @@ export const exportUmd = function( config = {}) {
         resolve(),
         commonjs(),
         eslint(),
-        makeBabelConfig()
+        makeBabelConfig(),
+        makeCleanupConfig()
     ]
 
     const packageInfo = getPackageSchema();
@@ -72,7 +88,8 @@ export const exportCommonJs = function(config = {}) {
     const plugins =  [
         peerDepsExternal(),
         eslint(),
-        makeBabelConfig()
+        makeBabelConfig(),
+        makeCleanupConfig()
     ];
 
     const packageInfo = getPackageSchema();
@@ -101,7 +118,8 @@ export const exportEsModule = function(config = {}) {
     const plugins = [
         peerDepsExternal(),
         eslint(),
-        makeBabelConfig()
+        makeBabelConfig(),
+        makeCleanupConfig()
     ];
 
     const packageInfo = getPackageSchema();
