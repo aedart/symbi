@@ -1,6 +1,6 @@
 'use strict';
 
-import {declare} from "@aedart/mixins";
+import { declare } from '@aedart/mixins';
 
 /**
  * Concerns Meta Target
@@ -12,7 +12,6 @@ import {declare} from "@aedart/mixins";
  * @return {Function}
  */
 export default declare((superClass) => class MetaTarget extends superClass {
-
     /**
      * Meta target
      *
@@ -39,6 +38,6 @@ export default declare((superClass) => class MetaTarget extends superClass {
      * @param {Function|null} target
      */
     defineMetaTarget(target) {
-        this.#metaTarget = target
+        this.#metaTarget = target;
     }
 });
