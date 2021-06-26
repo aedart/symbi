@@ -1,20 +1,42 @@
 import Builder from './Builder';
 
 /**
+ * Function Meta Builder callback
+ *
+ * @name paramBuilderCallback
+ * @function
+ *
+ * @param {Function} target
+ * @param {ParameterBuilder} builder
+ *
+ * @return {void}
+ */
+
+/**
  * Function Meta Builder
  *
  * @interface
- * @extends Builder
+ * @export Builder
  */
 export default class FunctionBuilder extends Builder {
     /**
-     * Define function parameter meta
+     * Define class constructor method meta
      *
-     * @param {*|*[]} types Datatype or types (if allows multiple types)
-     * @param {*} [defaultValue] Evt. default value
-     * @param {string|null} [name] Parameter name
+     * @param {Function} target
+     * @param {paramBuilderCallback} callback
      *
      * @return {self}
      */
-    param(types, defaultValue = undefined, name = null) {}
+    defineConstructor(target, callback) {}
+
+    /**
+     * Define class method meta
+     *
+     * @param {Function} target
+     * @param {paramBuilderCallback} callback
+     * @param {boolean} [isConstructor]
+     *
+     * @return {self}
+     */
+    method(target, callback, isConstructor = false) {}
 }
