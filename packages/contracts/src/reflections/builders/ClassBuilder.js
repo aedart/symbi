@@ -7,7 +7,7 @@ import Builder from './Builder';
  * @function
  *
  * @param {Function} target
- * @param {FunctionBuilder} builder
+ * @param {MethodBuilder} builder
  *
  * @return {void}
  */
