@@ -14,7 +14,7 @@ export default class ClassMeta extends Meta {
      *
      * @public
      *
-     * @return {string}
+     * @return {string|null}
      */
     get name() {}
 
