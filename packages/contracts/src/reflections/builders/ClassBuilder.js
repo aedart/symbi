@@ -19,7 +19,6 @@ import Builder from './Builder';
  * @export Builder
  */
 export default class ClassBuilder extends Builder {
-
     /**
      * Define class method meta
      *
