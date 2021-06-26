@@ -14,7 +14,7 @@ export default class FunctionBuilder extends Builder {
      * @param {*} [defaultValue] Evt. default value
      * @param {string|null} [name] Parameter name
      *
-     * @return {self}
+     * @return {FunctionBuilder}
      */
     param(types, defaultValue = undefined, name = null) {}
 }

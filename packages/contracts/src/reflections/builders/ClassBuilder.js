@@ -25,7 +25,7 @@ export default class ClassBuilder extends Builder {
      * @param {Function} target
      * @param {methodMetaCallback} callback
      *
-     * @return {self}
+     * @return {ClassBuilder}
      */
     method(target, callback) {}
 }
