@@ -16,7 +16,7 @@ export default class ParameterMeta extends Meta {
      *
      * @return {FunctionMeta}
      */
-    get functionMeta() {}
+    get parent() {}
 
     /**
      * Name of the parameter

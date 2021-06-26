@@ -16,7 +16,7 @@ export default class MethodMeta extends FunctionMeta {
      *
      * @return {ClassMeta}
      */
-    get classMeta() {}
+    get parent() {}
 
     /**
      * Determine if method is class constructor
