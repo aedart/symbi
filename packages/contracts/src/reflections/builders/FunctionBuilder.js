@@ -1,7 +1,12 @@
 import Builder from './Builder';
 
 /**
+<<<<<<< Updated upstream
  * Function Meta Builder callback
+=======
+<<<<<<< HEAD
+ * Parameter Meta Builder callback
+>>>>>>> Stashed changes
  *
  * @name paramBuilderCallback
  * @function
@@ -13,30 +18,22 @@ import Builder from './Builder';
  */
 
 /**
+=======
+>>>>>>> parent of dd65460... Rename builders
  * Function Meta Builder
  *
  * @interface
- * @export Builder
+ * @extends Builder
  */
 export default class FunctionBuilder extends Builder {
     /**
-     * Define class constructor method meta
+     * Define function parameter meta
      *
-     * @param {Function} target
-     * @param {paramBuilderCallback} callback
-     *
-     * @return {self}
-     */
-    defineConstructor(target, callback) {}
-
-    /**
-     * Define class method meta
-     *
-     * @param {Function} target
-     * @param {paramBuilderCallback} callback
-     * @param {boolean} [isConstructor]
+     * @param {*|*[]} types Datatype or types (if allows multiple types)
+     * @param {*} [defaultValue] Evt. default value
+     * @param {string|null} [name] Parameter name
      *
      * @return {self}
      */
-    method(target, callback, isConstructor = false) {}
+    param(types, defaultValue = undefined, name = null) {}
 }

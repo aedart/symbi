@@ -13,8 +13,8 @@ import FunctionMeta from './reflections/meta/FunctionMeta';
 import ParameterMeta from './reflections/meta/ParameterMeta';
 
 import Builder from './reflections/builders/Builder';
+import ClassBuilder from './reflections/builders/ClassBuilder';
 import FunctionBuilder from './reflections/builders/FunctionBuilder';
-import ParameterBuilder from './reflections/builders/ParameterBuilder';
 
 /*****************************************************************
  * Support
@@ -36,8 +36,8 @@ export {
     FunctionMeta,
     ParameterMeta,
     Builder,
+    ClassBuilder,
     FunctionBuilder,
-    ParameterBuilder,
 
     // Support
     Stringable
