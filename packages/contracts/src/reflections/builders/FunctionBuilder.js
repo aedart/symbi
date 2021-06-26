@@ -1,25 +1,6 @@
 import Builder from './Builder';
 
 /**
-<<<<<<< Updated upstream
- * Function Meta Builder callback
-=======
-<<<<<<< HEAD
- * Parameter Meta Builder callback
->>>>>>> Stashed changes
- *
- * @name paramBuilderCallback
- * @function
- *
- * @param {Function} target
- * @param {ParameterBuilder} builder
- *
- * @return {void}
- */
-
-/**
-=======
->>>>>>> parent of dd65460... Rename builders
  * Function Meta Builder
  *
  * @interface
