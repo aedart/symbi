@@ -1,6 +1,6 @@
-import {MetaReflection as Contract} from "@aedart/contracts";
-import {META_REFLECTION_SYMBOL} from "@aedart/contracts";
-import mix from "@aedart/mixins";
+import { MetaReflection as Contract, META_REFLECTION_SYMBOL } from '@aedart/contracts';
+
+import mix from '@aedart/mixins';
 
 /**
  * Meta Reflection
@@ -10,7 +10,6 @@ import mix from "@aedart/mixins";
 export default class MetaReflection extends mix()
     .inherit(Contract)
     .make() {
-
     /**
      * Get class meta
      *
