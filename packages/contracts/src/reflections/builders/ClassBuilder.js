@@ -19,24 +19,14 @@ import Builder from './Builder';
  * @export Builder
  */
 export default class ClassBuilder extends Builder {
-    /**
-     * Define class constructor method meta
-     *
-     * @param {Function} target
-     * @param {methodMetaCallback} callback
-     *
-     * @return {self}
-     */
-    defineConstructor(target, callback) {}
 
     /**
      * Define class method meta
      *
      * @param {Function} target
      * @param {methodMetaCallback} callback
-     * @param {boolean} [isConstructor]
      *
      * @return {self}
      */
-    method(target, callback, isConstructor = false) {}
+    method(target, callback) {}
 }
