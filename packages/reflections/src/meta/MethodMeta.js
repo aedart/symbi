@@ -5,7 +5,8 @@ import mix from '@aedart/mixins';
 /**
  * Class Method Meta
  *
- * @implements Contract
+ * @implements {Contract}
+ * @extends FunctionMeta
  */
 export default class MethodMeta extends mix(FunctionMeta)
     .inherit(Contract)
