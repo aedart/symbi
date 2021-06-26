@@ -1,7 +1,7 @@
 import Builder from './Builder';
 
 /**
- * Parameter Meta Builder callback
+ * Function Meta Builder callback
  *
  * @name paramBuilderCallback
  * @function
