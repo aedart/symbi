@@ -12,6 +12,10 @@ import MethodMeta from './reflections/meta/MethodMeta';
 import FunctionMeta from './reflections/meta/FunctionMeta';
 import ParameterMeta from './reflections/meta/ParameterMeta';
 
+import Builder from './reflections/builders/Builder';
+import ClassBuilder from './reflections/builders/ClassBuilder';
+import FunctionBuilder from './reflections/builders/FunctionBuilder';
+
 /*****************************************************************
  * Support
  ****************************************************************/
@@ -31,6 +35,9 @@ export {
     MethodMeta,
     FunctionMeta,
     ParameterMeta,
+    Builder,
+    ClassBuilder,
+    FunctionBuilder,
 
     // Support
     Stringable
