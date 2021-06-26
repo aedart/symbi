@@ -10,7 +10,7 @@ import { Meta } from './Meta';
  */
 export default class ParameterMeta extends Meta {
     /**
-     * The function meta that this method meta belongs to
+     * The function meta that this parameter meta belongs to
      *
      * @public
      *
