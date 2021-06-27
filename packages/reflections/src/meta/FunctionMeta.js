@@ -1,5 +1,5 @@
 import { FunctionMeta as Contract } from '@aedart/contracts/dist/reflections.esm';
-import {Freezable} from "@aedart/contracts/dist/support.esm";
+import { Freezable } from '@aedart/contracts/dist/support.esm';
 import mix from '@aedart/mixins';
 import MetaTarget from '../concerns/MetaTarget';
 
