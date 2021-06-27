@@ -3,8 +3,7 @@ import Builder from './Builder';
 /**
  * Function Meta Builder callback
  *
- * @name methodMetaCallback
- * @function
+ * @callback methodMetaCallback
  *
  * @param {Function} target
  * @param {MethodBuilder} builder
@@ -17,6 +16,7 @@ import Builder from './Builder';
  *
  * @interface
  * @export Builder
+ * @memberOf module:contracts
  */
 export default class ClassBuilder extends Builder {
     /**

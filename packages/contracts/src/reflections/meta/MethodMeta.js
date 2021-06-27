@@ -7,6 +7,7 @@ import FunctionMeta from './FunctionMeta';
  *
  * @interface
  * @extends FunctionMeta
+ * @memberOf module:contracts
  */
 export default class MethodMeta extends FunctionMeta {
     /**

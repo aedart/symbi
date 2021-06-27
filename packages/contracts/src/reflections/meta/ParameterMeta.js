@@ -7,6 +7,7 @@ import { Meta } from './Meta';
  *
  * @interface
  * @extends Meta
+ * @memberOf module:contracts
  */
 export default class ParameterMeta extends Meta {
     /**
