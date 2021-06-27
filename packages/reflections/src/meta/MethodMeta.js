@@ -1,11 +1,11 @@
-import { MethodMeta as Contract } from '@aedart/contracts';
+import {MethodMeta as Contract} from "@aedart/contracts/dist/reflections.esm";
 import FunctionMeta from './FunctionMeta';
 import mix from '@aedart/mixins';
 
 /**
  * Class Method Meta
  *
- * @implements {Contract}
+ * @implements module:reflection-contracts.MethodMeta
  * @extends FunctionMeta
  */
 export default class MethodMeta extends mix(FunctionMeta)

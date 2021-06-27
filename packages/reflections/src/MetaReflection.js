@@ -1,11 +1,10 @@
-import { MetaReflection as Contract, META_REFLECTION_SYMBOL } from '@aedart/contracts';
-
+import { MetaReflection as Contract, META_REFLECTION_SYMBOL } from '@aedart/contracts/dist/reflections.esm';
 import mix from '@aedart/mixins';
 
 /**
  * Meta Reflection
  *
- * @implements Contract
+ * @implements module:reflection-contracts.MetaReflection
  */
 export default class MetaReflection extends mix()
     .inherit(Contract)

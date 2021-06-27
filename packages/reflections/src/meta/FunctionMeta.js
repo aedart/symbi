@@ -1,11 +1,11 @@
-import { FunctionMeta as Contract } from '@aedart/contracts';
+import {FunctionMeta as Contract} from "@aedart/contracts/dist/reflections.esm";
 import mix from '@aedart/mixins';
 import MetaTarget from '../concerns/MetaTarget';
 
 /**
  * Function Meta
  *
- * @implements Contract
+ * @implements module:reflection-contracts.FunctionMeta
  */
 export default class FunctionMeta extends mix()
     .with(MetaTarget)

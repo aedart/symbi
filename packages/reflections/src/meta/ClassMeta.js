@@ -1,11 +1,11 @@
-import { ClassMeta as Contract } from '@aedart/contracts';
+import {ClassMeta as Contract} from "@aedart/contracts/dist/reflections.esm";
 import mix from '@aedart/mixins';
 import MetaTarget from '../concerns/MetaTarget';
 
 /**
  * Class Meta
  *
- * @implements Contract
+ * @implements module:reflection-contracts.ClassMeta
  */
 export default class ClassMeta extends mix()
     .with(MetaTarget)
