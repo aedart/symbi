@@ -16,7 +16,7 @@ export default class FunctionMeta extends mix()
      *
      * @protected
      *
-     * @type {ParameterMeta[]}
+     * @type {module:reflection-contracts.ParameterMeta[]}
      */
     metaParameters;
 
@@ -24,7 +24,7 @@ export default class FunctionMeta extends mix()
      * FunctionMeta
      *
      * @param {Function} target
-     * @param {ParameterMeta[]} parameters
+     * @param {module:reflection-contracts.ParameterMeta[]} parameters
      */
     constructor(target, parameters = []) {
         super();
@@ -34,11 +34,7 @@ export default class FunctionMeta extends mix()
     }
 
     /**
-     * Name of the function
-     *
-     * @public
-     *
-     * @return {string|null}
+     * @inheritdoc
      */
     get name() {
         const target = this.target;
@@ -51,22 +47,14 @@ export default class FunctionMeta extends mix()
     }
 
     /**
-     * Function parameters
-     *
-     * @public
-     *
-     * @return {ParameterMeta[]}
+     * @inheritdoc
      */
     get parameters() {
         return this.metaParameters;
     }
 
     /**
-     * Determine if function has parameters
-     *
-     * @public
-     *
-     * @return {boolean}
+     * @inheritdoc
      */
     hasParameters() {
         return this.parameters.length > 0;

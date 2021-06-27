@@ -16,7 +16,7 @@ export default class ParameterMeta extends mix()
      *
      * @protected
      *
-     * @type {FunctionMeta}
+     * @type {module:reflection-contracts.FunctionMeta}
      */
     metaParent;
 
@@ -34,7 +34,7 @@ export default class ParameterMeta extends mix()
      *
      * @protected
      *
-     * @type {*|undefined}
+     * @type {*}
      */
     paramDefaultValue;
 
@@ -70,88 +70,56 @@ export default class ParameterMeta extends mix()
     }
 
     /**
-     * The function meta that this parameter meta belongs to
-     *
-     * @public
-     *
-     * @return {FunctionMeta}
+     * @inheritDoc
      */
     get parent() {
         return this.metaParent;
     }
 
     /**
-     * Name of the parameter
-     *
-     * @public
-     *
-     * @return {string|null}
+     * @inheritdoc
      */
     get name() {
         return this.paramName;
     }
 
     /**
-     * Datatype(s) of parameter
-     *
-     * @public
-     *
-     * @return {*[]}
+     * @inheritdoc
      */
     get types() {
         return this.paramTypes;
     }
 
     /**
-     * Default value for parameter
-     *
-     * @public
-     *
-     * @return {*}
+     * @inheritdoc
      */
     get defaultValue() {
         return this.paramDefaultValue;
     }
 
     /**
-     * Determine if one or more types has been specified for parameter
-     *
-     * @public
-     *
-     * @return {boolean}
+     * @inheritdoc
      */
     hasTypes() {
         return this.types.length > 0;
     }
 
     /**
-     * Determine if parameter is required
-     *
-     * @public
-     *
-     * @return {boolean}
+     * @inheritdoc
      */
     isRequired() {
         return !this.isOptional();
     }
 
     /**
-     * Determine if parameter is optional
-     *
-     * @public
-     *
-     * @return {boolean}
+     * @inheritdoc
      */
     isOptional() {
         return this.hasDefaultValue();
     }
 
     /**
-     * Determine if a default value has been set for parameter
-     *
-     * @public
-     *
-     * @return {boolean}
+     * @inheritdoc
      */
     hasDefaultValue() {
         return this.defaultValue !== undefined;

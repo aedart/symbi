@@ -16,7 +16,7 @@ export default class ClassMeta extends mix()
      *
      * @protected
      *
-     * @type {MethodMeta[]}
+     * @type {module:reflection-contracts.MethodMeta[]}
      */
     metaMethods;
 
@@ -24,7 +24,7 @@ export default class ClassMeta extends mix()
      * ClassMeta
      *
      * @param {Function} target
-     * @param {MethodMeta[]} [methods]
+     * @param {module:reflection-contracts.MethodMeta[]} [methods]
      */
     constructor(target, methods = []) {
         super();
@@ -55,22 +55,14 @@ export default class ClassMeta extends mix()
     }
 
     /**
-     * Class methods
-     *
-     * @public
-     *
-     * @return {MethodMeta[]}
+     * @inheritdoc
      */
     get methods() {
         return this.metaMethods;
     }
 
     /**
-     * Class constructor method
-     *
-     * @public
-     *
-     * @return {MethodMeta|null}
+     * @inheritdoc
      */
     get constructorMethod() {
         for (const method of this.methods) {
@@ -83,22 +75,14 @@ export default class ClassMeta extends mix()
     }
 
     /**
-     * Determine if class has methods
-     *
-     * @public
-     *
-     * @return {boolean}
+     * @inheritdoc
      */
     hasMethods() {
         return this.methods.length > 0;
     }
 
     /**
-     * Determine if class has constructor method declared
-     *
-     * @public
-     *
-     * @return {boolean}
+     * @inheritdoc
      */
     hasConstructor() {
         return this.constructorMethod !== null;

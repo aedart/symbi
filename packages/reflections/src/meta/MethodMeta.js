@@ -16,7 +16,7 @@ export default class MethodMeta extends mix(FunctionMeta)
      *
      * @protected
      *
-     * @type {ClassMeta}
+     * @type {module:reflection-contracts.ClassMeta}
      */
     metaParent;
 
@@ -31,9 +31,9 @@ export default class MethodMeta extends mix(FunctionMeta)
     /**
      * MethodMeta
      *
-     * @param {ClassMeta} meta The class meta that this method meta belongs to
+     * @param {module:reflection-contracts.ClassMeta} meta The class meta that this method meta belongs to
      * @param {Function} target
-     * @param {ParameterMeta[]} parameters
+     * @param {module:reflection-contracts.ParameterMeta[]} parameters
      */
     constructor(meta, target, parameters = []) {
         super(target, parameters);
@@ -42,22 +42,14 @@ export default class MethodMeta extends mix(FunctionMeta)
     }
 
     /**
-     * The class meta that this method meta belongs to
-     *
-     * @public
-     *
-     * @return {ClassMeta}
+     * @inheritdoc
      */
     get parent() {
         return this.metaParent;
     }
 
     /**
-     * Determine if method is class constructor
-     *
-     * @public
-     *
-     * @return {boolean}
+     * @inheritdoc
      */
     isConstructor() {
         if (this.definedMetaForConstructor !== undefined) {
