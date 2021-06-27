@@ -16,7 +16,7 @@ import Builder from './Builder';
  *
  * @interface
  * @export Builder
- * @memberOf module:contracts
+ * @memberOf module:reflection-contracts
  */
 export default class ClassBuilder extends Builder {
     /**

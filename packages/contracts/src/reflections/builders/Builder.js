@@ -4,7 +4,7 @@
  * Able to build meta reflection
  *
  * @interface
- * @memberOf module:contracts
+ * @memberOf module:reflection-contracts
  */
 export default class Builder {
     /**

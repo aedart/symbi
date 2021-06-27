@@ -5,7 +5,7 @@
  * defines meta reflection
  *
  * @type {symbol}
- * @memberOf module:contracts
+ * @memberOf module:reflection-contracts
  */
 export const META_REFLECTION_SYMBOL = Symbol('meta-reflection');
 
@@ -24,7 +24,7 @@ export const META_REFLECTION_SYMBOL = Symbol('meta-reflection');
  * Meta Reflection
  *
  * @interface
- * @memberOf module:contracts
+ * @memberOf module:reflection-contracts
  */
 export default class MetaReflection {
     /**

@@ -4,7 +4,7 @@
  * Stringable
  *
  * @interface
- * @memberOf module:contracts
+ * @memberOf module:support-contracts
  */
 export default class Stringable {
     /**

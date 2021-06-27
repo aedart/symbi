@@ -5,7 +5,7 @@
  * some kind of meta information about a target.
  *
  * @interface
- * @memberOf module:contracts
+ * @memberOf module:reflection-contracts
  */
 export class Meta {
     /**

@@ -5,7 +5,7 @@ import FunctionBuilder from './FunctionBuilder';
  *
  * @interface
  * @extends FunctionBuilder
- * @memberOf module:contracts
+ * @memberOf module:reflection-contracts
  */
 export default class MethodBuilder extends FunctionBuilder {
 
