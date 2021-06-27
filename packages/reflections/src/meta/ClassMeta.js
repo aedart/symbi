@@ -34,11 +34,7 @@ export default class ClassMeta extends mix()
     }
 
     /**
-     * Name of the class
-     *
-     * @public
-     *
-     * @return {string|null}
+     * @inheritdoc
      */
     get name() {
         const target = this.target;
