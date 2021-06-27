@@ -160,6 +160,7 @@ export default class MetaReflection extends mix()
             return builder.build();
         } catch (error) {
             // TODO: FAIL with custom exception?
+            throw new Error(error.message);
         }
     }
 
