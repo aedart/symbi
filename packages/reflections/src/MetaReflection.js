@@ -13,7 +13,7 @@ export default class MetaReflection extends mix()
      * @inheritdoc
      */
     static ofClass(target) {
-        
+
     }
 
     /**
