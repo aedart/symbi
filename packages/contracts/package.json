@@ -23,10 +23,7 @@
   "type": "module",
   "exports": {
     ".": "./dist/contracts.cjs.js",
-    "./dist/*": {
-      "import": "./dist/*.esm.js",
-      "require": "./dist/*.cjs.js"
-    }
+    "./dist/*": "./dist/*.js"
   },
   "publishConfig": {
     "access": "public"
