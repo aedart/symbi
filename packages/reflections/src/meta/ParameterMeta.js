@@ -10,12 +10,11 @@ import MetaTarget from '../concerns/MetaTarget';
  * @implements module:support-contracts.Freezable
  */
 export default class ParameterMeta extends mix()
-    .with(MetaTarget)
     .inherit(
         Contract,
         Freezable
     )
-    .make() {
+    .with(MetaTarget) {
     /**
      * Function meta that this parameter meta belongs to
      *

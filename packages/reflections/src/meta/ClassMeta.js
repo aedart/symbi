@@ -9,9 +9,8 @@ import MetaTarget from '../concerns/MetaTarget';
  * @implements module:support-contracts.Freezable
  */
 export default class ClassMeta extends mix()
-    .with(MetaTarget)
     .inherit(Contract)
-    .make() {
+    .with(MetaTarget) {
     /**
      * Meta methods
      *
