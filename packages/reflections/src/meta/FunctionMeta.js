@@ -35,7 +35,7 @@ export default class FunctionMeta extends mix()
         super();
 
         this.defineMetaTarget(target);
-        this.metaParameters = parameters;
+        this.metaParameters = this.resolveParameters(parameters);
     }
 
     /**
@@ -70,5 +70,31 @@ export default class FunctionMeta extends mix()
      */
     freeze() {
         Object.freeze(this);
+    }
+
+    /*****************************************************************
+     * Internals
+     ****************************************************************/
+
+    /**
+     * Resolves the meta parameters
+     *
+     * @protected
+     *
+     * @param {module:reflection-contracts.ParameterMeta[]} parameters
+     *
+     * @return {module:reflection-contracts.ParameterMeta[]}
+     */
+    resolveParameters(parameters) {
+        return parameters.map((param) => {
+            if (param.hasOwnProperty('withParent') && typeof param.withParent === 'function') {
+                param.withParent(this);
+                param.freeze();
+
+                return param;
+            }
+
+            return param;
+        });
     }
 }

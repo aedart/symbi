@@ -31,7 +31,7 @@ export default class ClassMeta extends mix()
         super();
 
         this.defineMetaTarget(target);
-        this.metaMethods = methods;
+        this.metaMethods = this.resolveMethods(methods);
     }
 
     /**
@@ -90,5 +90,31 @@ export default class ClassMeta extends mix()
      */
     freeze() {
         Object.freeze(this);
+    }
+
+    /*****************************************************************
+     * Internals
+     ****************************************************************/
+
+    /**
+     * Resolves the meta methods
+     *
+     * @protected
+     *
+     * @param {module:reflection-contracts.MethodMeta[]} methods
+     *
+     * @return {module:reflection-contracts.MethodMeta[]}
+     */
+    resolveMethods(methods) {
+        return methods.map((method) => {
+            if (method.hasOwnProperty('withParent') && typeof method.withParent === 'function') {
+                method.withParent(this);
+                method.freeze();
+
+                return method;
+            }
+
+            return method;
+        });
     }
 }
