@@ -1,7 +1,7 @@
 /**
  * Freezable
  *
- * @instance
+ * @interface
  * @memberOf module:support-contracts
  */
 export default class Freezable {
