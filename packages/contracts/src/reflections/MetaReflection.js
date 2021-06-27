@@ -11,8 +11,7 @@ export const META_REFLECTION_SYMBOL = Symbol('meta-reflection');
 /**
  * Class Meta Builder callback
  *
- * @name classBuilderCallback
- * @function
+ * @callback classBuilderCallback
  *
  * @param {Function} target Class reference
  * @param {ClassBuilder} builder
