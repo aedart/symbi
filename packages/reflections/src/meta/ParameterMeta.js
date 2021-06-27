@@ -1,4 +1,5 @@
 import { ParameterMeta as Contract } from '@aedart/contracts/dist/reflections.esm';
+import { Freezable } from '@aedart/contracts/dist/support.esm';
 import mix from '@aedart/mixins';
 import MetaTarget from '../concerns/MetaTarget';
 
@@ -6,10 +7,14 @@ import MetaTarget from '../concerns/MetaTarget';
  * Function Parameter Meta
  *
  * @implements module:reflection-contracts.ParameterMeta
+ * @implements module:support-contracts.Freezable
  */
 export default class ParameterMeta extends mix()
     .with(MetaTarget)
-    .inherit(Contract)
+    .inherit(
+        Contract,
+        Freezable
+    )
     .make() {
     /**
      * Function meta that this parameter meta belongs to
@@ -50,7 +55,7 @@ export default class ParameterMeta extends mix()
     /**
      * ParameterMeta
      *
-     * @param {module:reflection-contracts.FunctionMeta} meta The function meta this parameter meta belongs to
+     * @param {module:reflection-contracts.FunctionMeta|null} meta The function meta this parameter meta belongs to
      * @param {*[]} types Datatype(s) of parameter
      * @param {*} [defaultValue] Evt. default value of parameter
      * @param {string|null} name Evt. name of parameter
@@ -63,10 +68,31 @@ export default class ParameterMeta extends mix()
     ) {
         super();
 
-        this.metaParent = meta;
+        if (meta !== null) {
+            this.withParent(meta);
+        }
+
         this.paramTypes = types;
         this.paramDefaultValue = defaultValue;
         this.paramName = name;
+    }
+
+    /**
+     * Set the parent meta function instance
+     *
+     * CAUTION: This meta SHOULD be frozen once the parent meta
+     * has been set!
+     *
+     * @see freeze
+     *
+     * @param {module:reflection-contracts.FunctionMeta} meta
+     *
+     * @return {ParameterMeta}
+     */
+    withParent(meta) {
+        this.metaParent = meta;
+
+        return this;
     }
 
     /**
@@ -123,5 +149,12 @@ export default class ParameterMeta extends mix()
      */
     hasDefaultValue() {
         return this.defaultValue !== undefined;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    freeze() {
+        Object.freeze(this);
     }
 }

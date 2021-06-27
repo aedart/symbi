@@ -31,14 +31,34 @@ export default class MethodMeta extends mix(FunctionMeta)
     /**
      * MethodMeta
      *
-     * @param {module:reflection-contracts.ClassMeta} meta The class meta that this method meta belongs to
+     * @param {module:reflection-contracts.ClassMeta|null} meta The class meta that this method meta belongs to
      * @param {Function} target
      * @param {module:reflection-contracts.ParameterMeta[]} parameters
      */
     constructor(meta, target, parameters = []) {
         super(target, parameters);
 
+        if (meta !== null) {
+            this.withParent(meta);
+        }
+    }
+
+    /**
+     * Set the parent meta class instance
+     *
+     * CAUTION: This meta SHOULD be frozen once the parent meta
+     * has been set!
+     *
+     * @see freeze
+     *
+     * @param {module:reflection-contracts.ClassMeta} meta
+     *
+     * @return {MethodMeta}
+     */
+    withParent(meta) {
         this.metaParent = meta;
+
+        return this;
     }
 
     /**

@@ -1,4 +1,5 @@
 import { FunctionMeta as Contract } from '@aedart/contracts/dist/reflections.esm';
+import {Freezable} from "@aedart/contracts/dist/support.esm";
 import mix from '@aedart/mixins';
 import MetaTarget from '../concerns/MetaTarget';
 
@@ -6,10 +7,14 @@ import MetaTarget from '../concerns/MetaTarget';
  * Function Meta
  *
  * @implements module:reflection-contracts.FunctionMeta
+ * @implements module:support-contracts.Freezable
  */
 export default class FunctionMeta extends mix()
     .with(MetaTarget)
-    .inherit(Contract)
+    .inherit(
+        Contract,
+        Freezable
+    )
     .make() {
     /**
      * Meta parameters
@@ -58,5 +63,12 @@ export default class FunctionMeta extends mix()
      */
     hasParameters() {
         return this.parameters.length > 0;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    freeze() {
+        Object.freeze(this);
     }
 }

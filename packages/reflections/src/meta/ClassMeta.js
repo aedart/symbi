@@ -6,6 +6,7 @@ import MetaTarget from '../concerns/MetaTarget';
  * Class Meta
  *
  * @implements module:reflection-contracts.ClassMeta
+ * @implements module:support-contracts.Freezable
  */
 export default class ClassMeta extends mix()
     .with(MetaTarget)
@@ -82,5 +83,12 @@ export default class ClassMeta extends mix()
      */
     hasConstructor() {
         return this.constructorMethod !== null;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    freeze() {
+        Object.freeze(this);
     }
 }
