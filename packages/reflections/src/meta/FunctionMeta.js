@@ -7,7 +7,8 @@ import MetaTarget from '../concerns/MetaTarget';
  *
  * @implements Contract
  */
-export default class FunctionMeta extends mix(MetaTarget)
+export default class FunctionMeta extends mix()
+    .with(MetaTarget)
     .inherit(Contract)
     .make() {
     /**
