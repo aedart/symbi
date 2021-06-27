@@ -22,7 +22,13 @@ export default class MetaReflection extends mix()
     .inherit(Contract)
     .make() {
     /**
-     * @inheritdoc
+     * Get class meta
+     *
+     * @public
+     *
+     * @param {Function} target
+     *
+     * @return {module:reflection-contracts.ClassMeta|null}
      */
     static ofClass(target) {
         const callback = this.getMetaCallback(target);
@@ -34,7 +40,13 @@ export default class MetaReflection extends mix()
     }
 
     /**
-     * @inheritdoc
+     * Get class method meta
+     *
+     * @public
+     *
+     * @param {Function} target
+     *
+     * @return {module:reflection-contracts.MethodMeta|null}
      */
     static ofMethod(target) {
         const callback = this.getMetaCallback(target);
@@ -46,7 +58,13 @@ export default class MetaReflection extends mix()
     }
 
     /**
-     * @inheritdoc
+     * Get function meta
+     *
+     * @public
+     *
+     * @param {Function} target
+     *
+     * @return {module:reflection-contracts.FunctionMeta|null}
      */
     static ofFunction(target) {
         const callback = this.getMetaCallback(target);
@@ -59,14 +77,27 @@ export default class MetaReflection extends mix()
     }
 
     /**
-     * @inheritdoc
+     * Determine if target has meta defined
+     *
+     * @public
+     *
+     * @param {Function} target
+     *
+     * @return {boolean}
      */
     static has(target) {
         return this.getMetaCallback(target) !== null;
     }
 
     /**
-     * @inheritdoc
+     * Define meta for given class
+     *
+     * @public
+     *
+     * @param {Function} target Class reference
+     * @param {module:reflection-contracts.classBuilderCallback} callback
+     *
+     * @throws {TypeError}
      */
     static defineClass(target, callback) {
         this.assertValidTarget(target, 'Target must be a valid class function');
@@ -78,7 +109,14 @@ export default class MetaReflection extends mix()
     }
 
     /**
-     * @inheritdoc
+     * Define meta for given function
+     *
+     * @public
+     *
+     * @param {Function} target Function reference
+     * @param {module:reflection-contracts.functionBuilderCallback} callback
+     *
+     * @throws {TypeError}
      */
     static defineFunction(target, callback) {
         this.assertValidTarget(target);
@@ -88,7 +126,11 @@ export default class MetaReflection extends mix()
     }
 
     /**
-     * @inheritdoc
+     * Returns the meta reflection symbol
+     *
+     * @public
+     *
+     * @return {module:reflection-contracts.META_REFLECTION_SYMBOL}
      */
     static get symbol() {
         return META_REFLECTION_SYMBOL;
@@ -148,7 +190,7 @@ export default class MetaReflection extends mix()
      * @protected
      *
      * @param {object} proto Prototype
-     * @param {metaBuilderCallback} callback
+     * @param {module:reflection-contracts.classBuilderCallback|module:reflection-contracts.functionBuilderCallback} callback
      */
     static defineMetaBuilderMethod(proto, callback) {
         Reflect.defineProperty(proto, this.symbol, {
