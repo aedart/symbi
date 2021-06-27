@@ -10,7 +10,7 @@ import mix from '@aedart/mixins';
  * @param {Function} target Class, method or function reference
  * @param {module:reflection-contracts.Builder} builder
  *
- * @return {void}
+ * @return {module:reflection-contracts.Builder}
  */
 
 /**
@@ -155,8 +155,12 @@ export default class MetaReflection extends mix()
      */
     static buildMeta(callback, target, builder) {
         try {
-            callback(target, builder);
+            let result = callback(target, builder);
+            if (result) {
+                return result.build();
+            }
 
+            // TODO: We should fail whenever nothing is returned!
             return builder.build();
         } catch (error) {
             // TODO: FAIL with custom exception?

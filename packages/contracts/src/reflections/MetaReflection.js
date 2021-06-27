@@ -18,7 +18,7 @@ export const META_REFLECTION_SYMBOL = Symbol('meta-reflection');
  * @param {Function} target Class reference
  * @param {module:reflection-contracts.ClassBuilder} builder
  *
- * @return {void}
+ * @return {module:reflection-contracts.ClassBuilder}
  */
 
 /**
@@ -30,7 +30,7 @@ export const META_REFLECTION_SYMBOL = Symbol('meta-reflection');
  * @param {Function} target Function reference
  * @param {module:reflection-contracts.FunctionBuilder} builder
  *
- * @return {void}
+ * @return {module:reflection-contracts.FunctionBuilder}
  */
 
 /**
