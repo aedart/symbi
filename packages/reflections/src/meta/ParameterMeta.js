@@ -50,7 +50,7 @@ export default class ParameterMeta extends mix()
     /**
      * ParameterMeta
      *
-     * @param {FunctionMeta} meta The function meta this parameter meta belongs to
+     * @param {module:reflection-contracts.FunctionMeta} meta The function meta this parameter meta belongs to
      * @param {*[]} types Datatype(s) of parameter
      * @param {*} [defaultValue] Evt. default value of parameter
      * @param {string|null} name Evt. name of parameter
