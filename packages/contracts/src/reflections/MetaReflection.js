@@ -13,9 +13,10 @@ export const META_REFLECTION_SYMBOL = Symbol('meta-reflection');
  * Class Meta Builder callback
  *
  * @callback classBuilderCallback
+ * @memberOf module:reflection-contracts
  *
  * @param {Function} target Class reference
- * @param {ClassBuilder} builder
+ * @param {module:reflection-contracts.ClassBuilder} builder
  *
  * @return {void}
  */
@@ -32,7 +33,7 @@ export default class MetaReflection {
      *
      * @param {Function} target
      *
-     * @return {ClassMeta|null}
+     * @return {module:reflection-contracts.ClassMeta|null}
      */
     static ofClass(target) {}
 
@@ -41,7 +42,7 @@ export default class MetaReflection {
      *
      * @param {Function} target
      *
-     * @return {MethodMeta|null}
+     * @return {module:reflection-contracts.MethodMeta|null}
      */
     static ofMethod(target) {}
 
@@ -50,7 +51,7 @@ export default class MetaReflection {
      *
      * @param {Function} target
      *
-     * @return {FunctionMeta|null}
+     * @return {module:reflection-contracts.FunctionMeta|null}
      */
     static ofFunction(target) {}
 

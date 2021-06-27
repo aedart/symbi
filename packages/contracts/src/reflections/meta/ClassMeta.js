@@ -24,7 +24,7 @@ export default class ClassMeta extends Meta {
      *
      * @public
      *
-     * @return {MethodMeta[]}
+     * @return {module:reflection-contracts.MethodMeta[]}
      */
     get methods() {}
 
@@ -33,7 +33,7 @@ export default class ClassMeta extends Meta {
      *
      * @public
      *
-     * @return {MethodMeta|null}
+     * @return {module:reflection-contracts.MethodMeta|null}
      */
     get constructorMethod() {}
 

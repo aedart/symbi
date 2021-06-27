@@ -4,6 +4,7 @@ import Builder from './Builder';
  * Function Meta Builder callback
  *
  * @callback methodMetaCallback
+ * @memberOf module:reflection-contracts
  *
  * @param {Function} target
  * @param {MethodBuilder} builder

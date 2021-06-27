@@ -15,7 +15,7 @@ export default class ParameterMeta extends Meta {
      *
      * @public
      *
-     * @return {FunctionMeta}
+     * @return {module:reflection-contracts.FunctionMeta}
      */
     get parent() {}
 

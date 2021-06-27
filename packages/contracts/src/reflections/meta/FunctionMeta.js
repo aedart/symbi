@@ -24,7 +24,7 @@ export default class FunctionMeta extends Meta {
      *
      * @public
      *
-     * @return {ParameterMeta[]}
+     * @return {module:reflection-contracts.ParameterMeta[]}
      */
     get parameters() {}
 

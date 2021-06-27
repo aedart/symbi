@@ -15,7 +15,7 @@ export default class MethodMeta extends FunctionMeta {
      *
      * @public
      *
-     * @return {ClassMeta}
+     * @return {module:reflection-contracts.ClassMeta}
      */
     get parent() {}
 
