@@ -22,6 +22,18 @@ export const META_REFLECTION_SYMBOL = Symbol('meta-reflection');
  */
 
 /**
+ * Function Meta Builder callback
+ *
+ * @callback functionBuilderCallback
+ * @memberOf module:reflection-contracts
+ *
+ * @param {Function} target Function reference
+ * @param {module:reflection-contracts.FunctionBuilder} builder
+ *
+ * @return {void}
+ */
+
+/**
  * Meta Reflection
  *
  * @interface
@@ -30,6 +42,8 @@ export const META_REFLECTION_SYMBOL = Symbol('meta-reflection');
 export default class MetaReflection {
     /**
      * Get class meta
+     *
+     * @public
      *
      * @param {Function} target
      *
@@ -40,6 +54,8 @@ export default class MetaReflection {
     /**
      * Get class method meta
      *
+     * @public
+     *
      * @param {Function} target
      *
      * @return {module:reflection-contracts.MethodMeta|null}
@@ -48,6 +64,8 @@ export default class MetaReflection {
 
     /**
      * Get function meta
+     *
+     * @public
      *
      * @param {Function} target
      *
@@ -58,6 +76,8 @@ export default class MetaReflection {
     /**
      * Determine if target has meta defined
      *
+     * @public
+     *
      * @param {Function} target
      *
      * @return {boolean}
@@ -67,6 +87,8 @@ export default class MetaReflection {
     /**
      * Define meta for given class
      *
+     * @public
+     *
      * @param {Function} target Class reference
      * @param {classBuilderCallback} callback
      *
@@ -74,7 +96,16 @@ export default class MetaReflection {
      */
     static defineClass(target, callback) {}
 
-    // TODO: ...
+    /**
+     * Define meta for given function
+     *
+     * @public
+     *
+     * @param {Function} target Function reference
+     * @param {functionBuilderCallback} callback
+     *
+     * @throws {TypeError}
+     */
     static defineFunction(target, callback) {}
 
     /**
