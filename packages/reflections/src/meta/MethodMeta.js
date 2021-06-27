@@ -1,4 +1,4 @@
-import {MethodMeta as Contract} from "@aedart/contracts/dist/reflections.esm";
+import { MethodMeta as Contract } from '@aedart/contracts/dist/reflections.esm';
 import FunctionMeta from './FunctionMeta';
 import mix from '@aedart/mixins';
 

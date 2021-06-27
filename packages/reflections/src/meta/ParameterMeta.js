@@ -1,4 +1,4 @@
-import {ParameterMeta as Contract} from "@aedart/contracts/dist/reflections.esm";
+import { ParameterMeta as Contract } from '@aedart/contracts/dist/reflections.esm';
 import mix from '@aedart/mixins';
 import MetaTarget from '../concerns/MetaTarget';
 
