@@ -6,7 +6,7 @@ import { Meta } from './Meta';
  * Provides meta information about a function
  *
  * @interface
- * @extends Meta
+ * @extends module:reflection-contracts.Meta
  * @memberOf module:reflection-contracts
  */
 export default class FunctionMeta extends Meta {

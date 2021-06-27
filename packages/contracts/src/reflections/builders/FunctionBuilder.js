@@ -4,7 +4,7 @@ import Builder from './Builder';
  * Function Meta Builder
  *
  * @interface
- * @extends Builder
+ * @extends module:reflection-contracts.Builder
  * @memberOf module:reflection-contracts
  */
 export default class FunctionBuilder extends Builder {

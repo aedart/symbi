@@ -6,7 +6,7 @@ import FunctionMeta from './FunctionMeta';
  * Provides meta information about a class method
  *
  * @interface
- * @extends FunctionMeta
+ * @extends module:reflection-contracts.FunctionMeta
  * @memberOf module:reflection-contracts
  */
 export default class MethodMeta extends FunctionMeta {

@@ -10,7 +10,7 @@ export default class Builder {
     /**
      * Builds meta reflection
      *
-     * @return {Meta}
+     * @return {module:reflection-contracts.Meta}
      */
     build() {}
 }
