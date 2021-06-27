@@ -20,6 +20,14 @@
   "files": [
     "dist"
   ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/contracts.cjs.js",
+    "./dist/*": {
+      "import": "./dist/*.esm.js",
+      "require": "./dist/*.cjs.js"
+    }
+  },
   "publishConfig": {
     "access": "public"
   },
