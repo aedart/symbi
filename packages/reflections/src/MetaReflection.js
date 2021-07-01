@@ -102,8 +102,7 @@ export default class MetaReflection extends mix()
     static defineClass(target, callback) {
         this.assertValidTarget(target, 'Target must be a valid class function');
 
-        const proto = this.obtainTargetPrototype(target);
-        this.defineMetaBuilderMethod(proto, callback);
+        this.defineMetaBuilderMethod(target, callback);
 
         // TODO... should we build to force meta on class methods' prototype?
     }
@@ -121,8 +120,7 @@ export default class MetaReflection extends mix()
     static defineFunction(target, callback) {
         this.assertValidTarget(target);
 
-        const proto = this.obtainTargetPrototype(target);
-        this.defineMetaBuilderMethod(proto, callback);
+        this.defineMetaBuilderMethod(target, callback);
     }
 
     /**
@@ -155,7 +153,7 @@ export default class MetaReflection extends mix()
      */
     static buildMeta(callback, target, builder) {
         try {
-            callback.call(null, target, builder);
+            callback(target, builder);
 
             return builder.build();
         } catch (error) {
@@ -182,7 +180,7 @@ export default class MetaReflection extends mix()
             return target[this.symbol];
         }
 
-        return this.getMetaCallback(Reflect.getPrototypeOf(target));
+        return null;
     }
 
     /**
@@ -190,33 +188,13 @@ export default class MetaReflection extends mix()
      *
      * @protected
      *
-     * @param {object} proto Prototype
+     * @param {function|object} target
      * @param {module:reflection-contracts.classBuilderCallback|module:reflection-contracts.functionBuilderCallback} callback
      */
-    static defineMetaBuilderMethod(proto, callback) {
-        Reflect.defineProperty(proto, this.symbol, {
+    static defineMetaBuilderMethod(target, callback) {
+        Reflect.defineProperty(target, this.symbol, {
             value: callback
         });
-    }
-
-    /**
-     * Returns target's prototype
-     *
-     * @protected
-     *
-     * @param {Function} target
-     *
-     * @return {object} Prototype of target
-     *
-     * @throws {TypeError} If unable to obtain prototype
-     */
-    static obtainTargetPrototype(target) {
-        const proto = Reflect.getPrototypeOf(target);
-        if (!proto) {
-            throw new TypeError('Unable to obtain prototype of target. Meta cannot be defined');
-        }
-
-        return proto;
     }
 
     /**
