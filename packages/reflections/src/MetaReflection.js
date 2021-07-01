@@ -155,12 +155,8 @@ export default class MetaReflection extends mix()
      */
     static buildMeta(callback, target, builder) {
         try {
-            let result = callback(target, builder);
-            if (result) {
-                return result.build();
-            }
+            callback.call(null, target, builder);
 
-            // TODO: We should fail whenever nothing is returned!
             return builder.build();
         } catch (error) {
             // TODO: FAIL with custom exception?
