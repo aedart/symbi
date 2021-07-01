@@ -13,7 +13,7 @@ export default class Freezable {
      *
      * @public
      *
-     * @return {void}
+     * @return {self}
      */
     freeze() {}
 }

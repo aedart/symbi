@@ -69,6 +69,8 @@ export default class FunctionMeta extends mix()
      */
     freeze() {
         Object.freeze(this);
+
+        return this;
     }
 
     /*****************************************************************
@@ -87,10 +89,9 @@ export default class FunctionMeta extends mix()
     resolveParameters(parameters) {
         return parameters.map((param) => {
             if (param.hasOwnProperty('withParent') && typeof param.withParent === 'function') {
-                param.withParent(this);
-                param.freeze();
-
-                return param;
+                return param
+                    .withParent(this)
+                    .freeze();
             }
 
             return param;

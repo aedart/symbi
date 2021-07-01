@@ -155,5 +155,7 @@ export default class ParameterMeta extends mix()
      */
     freeze() {
         Object.freeze(this);
+
+        return this;
     }
 }
