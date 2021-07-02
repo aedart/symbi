@@ -15,8 +15,8 @@ export const META_REFLECTION_SYMBOL = Symbol('meta-reflection');
  * @callback classBuilderCallback
  * @memberOf module:reflection-contracts
  *
- * @param {Function} target Class reference
  * @param {module:reflection-contracts.ClassBuilder} builder
+ * @param {Function} target Class reference
  *
  * @return {module:reflection-contracts.ClassBuilder}
  */
@@ -27,8 +27,8 @@ export const META_REFLECTION_SYMBOL = Symbol('meta-reflection');
  * @callback functionBuilderCallback
  * @memberOf module:reflection-contracts
  *
- * @param {Function} target Function reference
  * @param {module:reflection-contracts.FunctionBuilder} builder
+ * @param {Function} target Function reference
  *
  * @return {module:reflection-contracts.FunctionBuilder}
  */

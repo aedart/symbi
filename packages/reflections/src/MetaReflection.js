@@ -7,8 +7,8 @@ import mix from '@aedart/mixins';
  *
  * @callback metaBuilderCallback
  *
- * @param {Function} target Class, method or function reference
  * @param {module:reflection-contracts.Builder} builder
+ * @param {Function} target Class, method or function reference
  *
  * @return {module:reflection-contracts.Builder}
  */
@@ -153,7 +153,7 @@ export default class MetaReflection extends mix()
      */
     static buildMeta(callback, target, builder) {
         try {
-            callback(target, builder);
+            callback(builder, target);
 
             return builder.build();
         } catch (error) {
