@@ -1,5 +1,5 @@
 import { MethodMetaBuilder as Contract } from '@aedart/contracts/dist/reflections.esm';
-import mix from '@aedart/mixins/src';
+import mix from '@aedart/mixins';
 import FunctionBuilder from './FunctionBuilder';
 import MethodMeta from '../meta/MethodMeta';
 
