@@ -25,20 +25,18 @@ describe('Meta Reflections', () => {
         });
 
         it('should contain correct meta parameters', function () {
-            let otherFunction = (a, b, c) => {};
+            let myFunction = (a, b, c) => {};
 
-            MetaReflection.defineFunction(otherFunction, (target, builder) => {
+            MetaReflection.defineFunction(myFunction, (builder) => {
                 return builder
                     .param(String, undefined, 'a')
                     .param(String, undefined, 'b')
-                    .param(String, undefined, 'c')
+                    .param(String, undefined, 'c');
             });
 
             // -------------------------------------------------------------------- //
 
-            const meta = MetaReflection.ofFunction(otherFunction);
-
-            // TODO: Sometimes the tests fail - stating that no params are available... but why?!
+            const meta = MetaReflection.ofFunction(myFunction);
 
             expect(meta.hasParameters()).toBeTrue('No meta parameters available');
             expect(meta.parameters.length).toBe(3, 'Incorrect amount of meta parameters');
