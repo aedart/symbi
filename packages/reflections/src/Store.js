@@ -9,6 +9,8 @@ export default class Store {
      * Map of targets and callbacks that build
      * meta
      *
+     * @private
+     *
      * @type {WeakMap<object|function, function|*>}
      */
     #map;
@@ -22,6 +24,8 @@ export default class Store {
 
     /**
      * Set meta callback for given target
+     *
+     * @public
      *
      * @param {object|function} target
      * @param {Function|*|undefined} callback
@@ -37,6 +41,8 @@ export default class Store {
     /**
      * Returns the meta callback for given target
      *
+     * @public
+     *
      * @param {object|function} target
      *
      * @return {Function|*|undefined}
@@ -48,6 +54,8 @@ export default class Store {
     /**
      * Determine if meta callback has been defined
      * for given target
+     *
+     * @public
      *
      * @param {object|function} target
      *
