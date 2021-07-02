@@ -6,6 +6,7 @@ import MethodMeta from './meta/MethodMeta';
 import FunctionMeta from './meta/FunctionMeta';
 import ParameterMeta from './meta/ParameterMeta';
 import FunctionBuilder from './builders/FunctionBuilder';
+import MethodBuilder from './builders/MethodBuilder';
 
 export {
     MetaReflection,
@@ -13,5 +14,6 @@ export {
     MethodMeta,
     FunctionMeta,
     ParameterMeta,
-    FunctionBuilder
+    FunctionBuilder,
+    MethodBuilder
 };
