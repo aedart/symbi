@@ -1,6 +1,7 @@
-import { MetaReflection as Contract, META_REFLECTION_SYMBOL } from '@aedart/contracts/dist/reflections.esm';
+import { MetaReflection as Contract } from '@aedart/contracts/dist/reflections.esm';
 import FunctionBuilder from './builders/FunctionBuilder';
 import mix from '@aedart/mixins';
+import Store from './Store';
 
 /**
  * Meta Builder callback
@@ -21,6 +22,15 @@ import mix from '@aedart/mixins';
 export default class MetaReflection extends mix()
     .inherit(Contract)
     .make() {
+    /**
+     * Meta store (map)
+     *
+     * @private
+     *
+     * @type {Store}
+     */
+    static #store = new Store();
+
     /**
      * Get class meta
      *
@@ -86,7 +96,7 @@ export default class MetaReflection extends mix()
      * @return {boolean}
      */
     static has(target) {
-        return this.getMetaCallback(target) !== null;
+        return this.#store.has(target);
     }
 
     /**
@@ -121,17 +131,6 @@ export default class MetaReflection extends mix()
         this.assertValidTarget(target);
 
         this.defineMetaBuilderMethod(target, callback);
-    }
-
-    /**
-     * Returns the meta reflection symbol
-     *
-     * @public
-     *
-     * @return {module:reflection-contracts.META_REFLECTION_SYMBOL}
-     */
-    static get symbol() {
-        return META_REFLECTION_SYMBOL;
     }
 
     /*****************************************************************
@@ -169,18 +168,15 @@ export default class MetaReflection extends mix()
      *
      * @param {function|*} target
      *
-     * @return {metaBuilderCallback|null}
+     * @return {module:reflection-contracts.classBuilderCallback|module:reflection-contracts.functionBuilderCallback|null}
      */
     static getMetaCallback(target) {
-        if (target === null || target === undefined) {
+        const builder = this.#store.get(target);
+        if (builder === undefined) {
             return null;
         }
 
-        if (target.hasOwnProperty(this.symbol)) {
-            return target[this.symbol];
-        }
-
-        return null;
+        return builder;
     }
 
     /**
@@ -192,9 +188,7 @@ export default class MetaReflection extends mix()
      * @param {module:reflection-contracts.classBuilderCallback|module:reflection-contracts.functionBuilderCallback} callback
      */
     static defineMetaBuilderMethod(target, callback) {
-        Reflect.defineProperty(target, this.symbol, {
-            value: callback
-        });
+        this.#store.set(target, callback);
     }
 
     /**

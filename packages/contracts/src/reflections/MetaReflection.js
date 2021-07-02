@@ -1,15 +1,4 @@
 /**
- * Meta Reflection symbol
- *
- * This symbol is used to identify a class, method or function
- * defines meta reflection
- *
- * @type {symbol}
- * @memberOf module:reflection-contracts
- */
-export const META_REFLECTION_SYMBOL = Symbol('meta-reflection');
-
-/**
  * Class Meta Builder callback
  *
  * @callback classBuilderCallback
@@ -107,13 +96,4 @@ export default class MetaReflection {
      * @throws {TypeError}
      */
     static defineFunction(target, callback) {}
-
-    /**
-     * Returns the meta reflection symbol
-     *
-     * @public
-     *
-     * @return {META_REFLECTION_SYMBOL}
-     */
-    static get symbol() {}
 }

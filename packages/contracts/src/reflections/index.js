@@ -6,7 +6,7 @@
  * @module reflection-contracts
  */
 
-import MetaReflection, { META_REFLECTION_SYMBOL } from './MetaReflection';
+import MetaReflection from './MetaReflection';
 
 import { Meta } from './meta/Meta';
 import ClassMeta from './meta/ClassMeta';
@@ -20,7 +20,6 @@ import MethodMetaBuilder from './builders/MethodBuilder';
 import FunctionMetaBuilder from './builders/FunctionBuilder';
 
 export {
-    META_REFLECTION_SYMBOL,
     MetaReflection,
 
     Meta,
