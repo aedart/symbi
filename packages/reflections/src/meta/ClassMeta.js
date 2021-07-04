@@ -42,13 +42,12 @@ export default class ClassMeta extends mix()
      */
     get name() {
         const target = this.target;
-        const proto = Reflect.getPrototypeOf(target);
-        if (!proto) {
-            return null;
-        }
 
-        if (Reflect.has(proto, 'constructor') && proto.constructor.hasOwnProperty('name')) {
-            return proto.constructor.name;
+        if (target.hasOwnProperty('prototype') &&
+            target.prototype.hasOwnProperty('constructor') &&
+            target.prototype.constructor.hasOwnProperty('name')
+        ) {
+            return target.prototype.constructor.name;
         }
 
         return null;
