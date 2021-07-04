@@ -9,7 +9,7 @@ describe('Meta Reflections', () => {
 
             let myFunction = () => {};
 
-            MetaReflection.defineFunction(myFunction, (target, builder) => {
+            MetaReflection.defineFunction(myFunction, (builder, target) => {
                 // N/A - not needed for this test
             });
 
