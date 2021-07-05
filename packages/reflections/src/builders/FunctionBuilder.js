@@ -18,7 +18,7 @@ export default class FunctionBuilder extends mix()
      *
      * @type {Function}
      */
-    target;
+    #target;
 
     /**
      * List of meta parameters
@@ -27,7 +27,7 @@ export default class FunctionBuilder extends mix()
      *
      * @type {ParameterMeta[]}
      */
-    params = [];
+    #params = [];
 
     /**
      * FunctionBuilder
@@ -37,22 +37,16 @@ export default class FunctionBuilder extends mix()
     constructor(target) {
         super();
 
-        this.target = target;
+        this.#target = target;
     }
 
     /**
      * @inheritDoc
      */
     param(types, defaultValue = undefined, name = null) {
-        if (!Array.isArray(types)) {
-            types = [types];
-        }
-
-        // Create new meta, but do not freeze it yet. This SHOULD be done automatically
-        // by the function meta (implementation specific).
-        const meta = new ParameterMeta(null, types, defaultValue, name);
-
-        this.params.push(meta);
+        this.#params.push(
+            new ParameterMeta(null, types, defaultValue, name)
+        );
 
         return this;
     }
@@ -63,10 +57,6 @@ export default class FunctionBuilder extends mix()
      * @return {FunctionMeta}
      */
     build() {
-        // Function meta ensures to set the param's parent and freeze them.
-        const meta = new FunctionMeta(this.target, this.params);
-        meta.freeze();
-
-        return meta;
+        return new FunctionMeta(this.#target, this.#params);
     }
 }
