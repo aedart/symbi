@@ -2,6 +2,7 @@ import { MetaReflection as Contract } from '@aedart/contracts/dist/reflections.e
 import FunctionBuilder from './builders/FunctionBuilder';
 import mix from '@aedart/mixins';
 import Store from './Store';
+import ClassBuilder from './builders/ClassBuilder';
 
 /**
  * Meta Builder callback
@@ -32,6 +33,31 @@ export default class MetaReflection extends mix()
     static #store = new Store();
 
     /**
+     * Get meta reflections for given target
+     *
+     * @param {Function} target
+     *
+     * @return {module:reflection-contracts.ClassMeta|module:reflection-contracts.MethodMeta|module:reflection-contracts.FunctionMeta|null}
+     */
+    static of(target) {
+        const callback = this.getMetaCallback(target);
+        if (!callback) {
+            return null;
+        }
+
+        try {
+            const builder = callback();
+
+            return builder.build();
+        } catch (error) {
+            // TODO: FAIL with custom exception, e.g. Meta Exception
+            throw new Error(error.message);
+        }
+    }
+
+    /**
+     * @deprecated
+     *
      * Get class meta
      *
      * @public
@@ -46,10 +72,13 @@ export default class MetaReflection extends mix()
             return null;
         }
 
-        // TODO...
+        const builder = new ClassBuilder(target);
+        return this.buildMeta(callback, target, builder);
     }
 
     /**
+     * @deprecated
+     *
      * Get class method meta
      *
      * @public
@@ -68,6 +97,8 @@ export default class MetaReflection extends mix()
     }
 
     /**
+     * @deprecated
+     *
      * Get function meta
      *
      * @public
@@ -130,7 +161,7 @@ export default class MetaReflection extends mix()
     static defineFunction(target, callback) {
         this.assertValidTarget(target);
 
-        this.defineMetaBuilderMethod(target, callback);
+        this.defineMetaBuilderMethod(target, callback, new FunctionBuilder(target));
     }
 
     /*****************************************************************
@@ -168,15 +199,15 @@ export default class MetaReflection extends mix()
      *
      * @param {function|*} target
      *
-     * @return {module:reflection-contracts.classBuilderCallback|module:reflection-contracts.functionBuilderCallback|null}
+     * @return {function}
      */
     static getMetaCallback(target) {
-        const builder = this.#store.get(target);
-        if (builder === undefined) {
+        const callback = this.#store.get(target);
+        if (callback === undefined) {
             return null;
         }
 
-        return builder;
+        return callback;
     }
 
     /**
@@ -186,9 +217,14 @@ export default class MetaReflection extends mix()
      *
      * @param {function|object} target
      * @param {module:reflection-contracts.classBuilderCallback|module:reflection-contracts.functionBuilderCallback} callback
+     * @param {module:reflection-contracts.Builder} builder
      */
-    static defineMetaBuilderMethod(target, callback) {
-        this.#store.set(target, callback);
+    static defineMetaBuilderMethod(target, callback, builder) {
+        this.#store.set(target, () => {
+            callback(builder, target);
+
+            return builder;
+        });
     }
 
     /**

@@ -17,7 +17,7 @@ describe('Meta Reflections', () => {
 
             expect(MetaReflection.has(myFunction)).toBeTrue('No meta detected for function');
 
-            const meta = MetaReflection.ofFunction(myFunction);
+            const meta = MetaReflection.of(myFunction);
             expect(meta).toBeInstanceOf(FunctionMeta);
 
             expect(meta.target).toBe(myFunction, 'Incorrect meta function target');
@@ -36,7 +36,7 @@ describe('Meta Reflections', () => {
 
             // -------------------------------------------------------------------- //
 
-            const meta = MetaReflection.ofFunction(myFunction);
+            const meta = MetaReflection.of(myFunction);
 
             expect(meta.hasParameters()).toBeTrue('No meta parameters available');
             expect(meta.parameters.length).toBe(3, 'Incorrect amount of meta parameters');
