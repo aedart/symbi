@@ -6,7 +6,6 @@ import MetaTarget from '../concerns/MetaTarget';
  * Function Parameter Meta
  *
  * @implements module:reflection-contracts.ParameterMeta
- * @implements module:support-contracts.Freezable
  */
 export default class ParameterMeta extends mix()
     .inherit(Contract)
