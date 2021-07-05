@@ -29,38 +29,15 @@
  * @memberOf module:reflection-contracts
  */
 export default class MetaReflection {
-    /**
-     * Get class meta
-     *
-     * @public
-     *
-     * @param {Function} target
-     *
-     * @return {module:reflection-contracts.ClassMeta|null}
-     */
-    static ofClass(target) {}
 
     /**
-     * Get class method meta
-     *
-     * @public
+     * Get meta reflections for given target
      *
      * @param {Function} target
      *
-     * @return {module:reflection-contracts.MethodMeta|null}
+     * @return {module:reflection-contracts.ClassMeta|module:reflection-contracts.MethodMeta|module:reflection-contracts.FunctionMeta|null}
      */
-    static ofMethod(target) {}
-
-    /**
-     * Get function meta
-     *
-     * @public
-     *
-     * @param {Function} target
-     *
-     * @return {module:reflection-contracts.FunctionMeta|null}
-     */
-    static ofFunction(target) {}
+    static of(target) {}
 
     /**
      * Determine if target has meta defined
