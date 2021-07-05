@@ -1,19 +1,8 @@
 import { MetaReflection as Contract } from '@aedart/contracts/dist/reflections.esm';
-import FunctionBuilder from './builders/FunctionBuilder';
 import mix from '@aedart/mixins';
 import Store from './Store';
 import ClassBuilder from './builders/ClassBuilder';
-
-/**
- * Meta Builder callback
- *
- * @callback metaBuilderCallback
- *
- * @param {module:reflection-contracts.Builder} builder
- * @param {Function} target Class, method or function reference
- *
- * @return {module:reflection-contracts.Builder}
- */
+import FunctionBuilder from './builders/FunctionBuilder';
 
 /**
  * Meta Reflection
@@ -40,7 +29,7 @@ export default class MetaReflection extends mix()
      * @return {module:reflection-contracts.ClassMeta|module:reflection-contracts.MethodMeta|module:reflection-contracts.FunctionMeta|null}
      */
     static of(target) {
-        const callback = this.getMetaCallback(target);
+        const callback = this.#getMetaCallback(target);
         if (!callback) {
             return null;
         }
@@ -53,68 +42,6 @@ export default class MetaReflection extends mix()
             // TODO: FAIL with custom exception, e.g. Meta Exception
             throw new Error(error.message);
         }
-    }
-
-    /**
-     * @deprecated
-     *
-     * Get class meta
-     *
-     * @public
-     *
-     * @param {Function} target
-     *
-     * @return {module:reflection-contracts.ClassMeta|null}
-     */
-    static ofClass(target) {
-        const callback = this.getMetaCallback(target);
-        if (!callback) {
-            return null;
-        }
-
-        const builder = new ClassBuilder(target);
-        return this.buildMeta(callback, target, builder);
-    }
-
-    /**
-     * @deprecated
-     *
-     * Get class method meta
-     *
-     * @public
-     *
-     * @param {Function} target
-     *
-     * @return {module:reflection-contracts.MethodMeta|null}
-     */
-    static ofMethod(target) {
-        const callback = this.getMetaCallback(target);
-        if (!callback) {
-            return null;
-        }
-
-        // TODO...
-    }
-
-    /**
-     * @deprecated
-     *
-     * Get function meta
-     *
-     * @public
-     *
-     * @param {Function} target
-     *
-     * @return {module:reflection-contracts.FunctionMeta|null}
-     */
-    static ofFunction(target) {
-        const callback = this.getMetaCallback(target);
-        if (!callback) {
-            return null;
-        }
-
-        const builder = new FunctionBuilder(target);
-        return this.buildMeta(callback, target, builder);
     }
 
     /**
@@ -141,9 +68,9 @@ export default class MetaReflection extends mix()
      * @throws {TypeError}
      */
     static defineClass(target, callback) {
-        this.assertValidTarget(target, 'Target must be a valid class function');
+        this.#assertValidTarget(target, 'Target must be a valid class function');
 
-        this.defineMetaBuilderMethod(target, callback);
+        this.#defineMetaBuilderMethod(target, callback, new ClassBuilder(target));
 
         // TODO... should we build to force meta on class methods' prototype?
     }
@@ -159,9 +86,9 @@ export default class MetaReflection extends mix()
      * @throws {TypeError}
      */
     static defineFunction(target, callback) {
-        this.assertValidTarget(target);
+        this.#assertValidTarget(target);
 
-        this.defineMetaBuilderMethod(target, callback, new FunctionBuilder(target));
+        this.#defineMetaBuilderMethod(target, callback, new FunctionBuilder(target));
     }
 
     /*****************************************************************
@@ -169,39 +96,15 @@ export default class MetaReflection extends mix()
      ****************************************************************/
 
     /**
-     * Executes the given meta callback with target and builder
-     *
-     * @protected
-     *
-     * @param {metaBuilderCallback} callback
-     * @param {Function} target
-     * @param {module:reflection-contracts.Builder} builder
-     *
-     * @return {module:reflection-contracts.Meta}
-     *
-     * TODO: Throws annotation!!!
-     */
-    static buildMeta(callback, target, builder) {
-        try {
-            callback(builder, target);
-
-            return builder.build();
-        } catch (error) {
-            // TODO: FAIL with custom exception?
-            throw new Error(error.message);
-        }
-    }
-
-    /**
      * Returns the "meta" callback method, if one is available
      *
-     * @protected
+     * @private
      *
      * @param {function|*} target
      *
      * @return {function}
      */
-    static getMetaCallback(target) {
+    static #getMetaCallback(target) {
         const callback = this.#store.get(target);
         if (callback === undefined) {
             return null;
@@ -213,13 +116,13 @@ export default class MetaReflection extends mix()
     /**
      * Defines meta builder callback on given prototype
      *
-     * @protected
+     * @private
      *
      * @param {function|object} target
      * @param {module:reflection-contracts.classBuilderCallback|module:reflection-contracts.functionBuilderCallback} callback
      * @param {module:reflection-contracts.Builder} builder
      */
-    static defineMetaBuilderMethod(target, callback, builder) {
+    static #defineMetaBuilderMethod(target, callback, builder) {
         this.#store.set(target, () => {
             callback(builder, target);
 
@@ -230,12 +133,12 @@ export default class MetaReflection extends mix()
     /**
      * Assert target is valid
      *
-     * @protected
+     * @private
      *
      * @param {*} target
      * @param {string} [msg]
      */
-    static assertValidTarget(target, msg = 'Target must be a valid function') {
+    static #assertValidTarget(target, msg = 'Target must be a valid function') {
         if (typeof target !== 'function') {
             throw new TypeError(msg);
         }
