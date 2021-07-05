@@ -20,6 +20,23 @@ export default class MethodMeta extends FunctionMeta {
     get parent() {}
 
     /**
+     * Determine if meta has a parent mata class
+     *
+     * @return {boolean}
+     */
+    hasParent() {}
+
+    /**
+     * Creates a new meta method instance with given
+     * meta class as parent
+     *
+     * @param {module:reflection-contracts.ClassMeta} meta
+     *
+     * @return {ParameterMeta} New instance
+     */
+    withParent(meta) {}
+
+    /**
      * Determine if method is class constructor
      *
      * @public

@@ -15,9 +15,26 @@ export default class ParameterMeta extends Meta {
      *
      * @public
      *
-     * @return {module:reflection-contracts.FunctionMeta}
+     * @return {module:reflection-contracts.FunctionMeta|null}
      */
     get parent() {}
+
+    /**
+     * Determine if meta has a parent mata function
+     *
+     * @return {boolean}
+     */
+    hasParent() {}
+
+    /**
+     * Creates a new meta parameter instance with given
+     * meta function as parent
+     *
+     * @param {module:reflection-contracts.FunctionMeta} meta
+     *
+     * @return {ParameterMeta} New instance
+     */
+    withParent(meta) {}
 
     /**
      * Name of the parameter

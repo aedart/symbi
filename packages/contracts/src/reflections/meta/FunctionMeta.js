@@ -36,4 +36,14 @@ export default class FunctionMeta extends Meta {
      * @return {boolean}
      */
     hasParameters() {}
+
+    /**
+     * Creates a new meta function instance with given
+     * list of meta parameters
+     *
+     * @param {module:reflection-contracts.ParameterMeta[]} [parameters]
+     *
+     * @return {FunctionMeta} New instance
+     */
+    withParameters(parameters = []) {}
 }

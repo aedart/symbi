@@ -1,5 +1,4 @@
 import { ClassMeta as Contract } from '@aedart/contracts/dist/reflections.esm';
-import { Freezable } from '@aedart/contracts/dist/support.esm';
 import mix from '@aedart/mixins';
 import MetaTarget from '../concerns/MetaTarget';
 
@@ -10,10 +9,7 @@ import MetaTarget from '../concerns/MetaTarget';
  * @implements module:support-contracts.Freezable
  */
 export default class ClassMeta extends mix()
-    .inherit(
-        Contract,
-        Freezable
-    )
+    .inherit(Contract)
     .with(MetaTarget) {
     /**
      * Meta methods
@@ -22,7 +18,7 @@ export default class ClassMeta extends mix()
      *
      * @type {module:reflection-contracts.MethodMeta[]}
      */
-    metaMethods;
+    #metaMethods;
 
     /**
      * ClassMeta
@@ -34,7 +30,7 @@ export default class ClassMeta extends mix()
         super();
 
         this.defineMetaTarget(target);
-        this.metaMethods = this.resolveMethods(methods);
+        this.#metaMethods = this.resolveMethods(methods);
     }
 
     /**
@@ -57,7 +53,24 @@ export default class ClassMeta extends mix()
      * @inheritdoc
      */
     get methods() {
-        return this.metaMethods;
+        return this.#metaMethods;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    hasMethods() {
+        return this.methods.length > 0;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    withMethods(methods = []) {
+        return new this(
+            this.target,
+            methods
+        );
     }
 
     /**
@@ -76,24 +89,8 @@ export default class ClassMeta extends mix()
     /**
      * @inheritdoc
      */
-    hasMethods() {
-        return this.methods.length > 0;
-    }
-
-    /**
-     * @inheritdoc
-     */
     hasConstructor() {
         return this.constructorMethod !== null;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    freeze() {
-        Object.freeze(this);
-
-        return this;
     }
 
     /*****************************************************************
@@ -112,10 +109,7 @@ export default class ClassMeta extends mix()
     resolveMethods(methods) {
         return methods.map((method) => {
             if (method.hasOwnProperty('withParent') && typeof method.withParent === 'function') {
-                method.withParent(this);
-                method.freeze();
-
-                return method;
+                return method.withParent(this);
             }
 
             return method;

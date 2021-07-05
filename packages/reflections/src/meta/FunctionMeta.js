@@ -1,5 +1,4 @@
 import { FunctionMeta as Contract } from '@aedart/contracts/dist/reflections.esm';
-import { Freezable } from '@aedart/contracts/dist/support.esm';
 import mix from '@aedart/mixins';
 import MetaTarget from '../concerns/MetaTarget';
 
@@ -10,10 +9,7 @@ import MetaTarget from '../concerns/MetaTarget';
  * @implements module:support-contracts.Freezable
  */
 export default class FunctionMeta extends mix()
-    .inherit(
-        Contract,
-        Freezable
-    )
+    .inherit(Contract)
     .with(MetaTarget) {
     /**
      * Meta parameters
@@ -22,7 +18,7 @@ export default class FunctionMeta extends mix()
      *
      * @type {module:reflection-contracts.ParameterMeta[]}
      */
-    metaParameters;
+    #metaParameters;
 
     /**
      * FunctionMeta
@@ -34,7 +30,7 @@ export default class FunctionMeta extends mix()
         super();
 
         this.defineMetaTarget(target);
-        this.metaParameters = this.resolveParameters(parameters);
+        this.#metaParameters = this.resolveParameters(parameters);
     }
 
     /**
@@ -54,7 +50,7 @@ export default class FunctionMeta extends mix()
      * @inheritdoc
      */
     get parameters() {
-        return this.metaParameters;
+        return this.#metaParameters;
     }
 
     /**
@@ -67,10 +63,11 @@ export default class FunctionMeta extends mix()
     /**
      * @inheritdoc
      */
-    freeze() {
-        Object.freeze(this);
-
-        return this;
+    withParameters(parameters = []) {
+        return new this(
+            this.target,
+            parameters
+        );
     }
 
     /*****************************************************************
@@ -89,9 +86,7 @@ export default class FunctionMeta extends mix()
     resolveParameters(parameters) {
         return parameters.map((param) => {
             if (param.hasOwnProperty('withParent') && typeof param.withParent === 'function') {
-                return param
-                    .withParent(this)
-                    .freeze();
+                return param.withParent(this)
             }
 
             return param;

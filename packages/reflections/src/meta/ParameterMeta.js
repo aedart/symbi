@@ -1,5 +1,4 @@
 import { ParameterMeta as Contract } from '@aedart/contracts/dist/reflections.esm';
-import { Freezable } from '@aedart/contracts/dist/support.esm';
 import mix from '@aedart/mixins';
 import MetaTarget from '../concerns/MetaTarget';
 
@@ -10,11 +9,9 @@ import MetaTarget from '../concerns/MetaTarget';
  * @implements module:support-contracts.Freezable
  */
 export default class ParameterMeta extends mix()
-    .inherit(
-        Contract,
-        Freezable
-    )
+    .inherit(Contract)
     .with(MetaTarget) {
+
     /**
      * Function meta that this parameter meta belongs to
      *
@@ -22,7 +19,7 @@ export default class ParameterMeta extends mix()
      *
      * @type {module:reflection-contracts.FunctionMeta}
      */
-    metaParent;
+    #metaParent;
 
     /**
      * Parameter's datatype(s)
@@ -31,7 +28,7 @@ export default class ParameterMeta extends mix()
      *
      * @type {*[]}
      */
-    paramTypes = [];
+    #paramTypes = [];
 
     /**
      * Parameter's default value
@@ -40,7 +37,7 @@ export default class ParameterMeta extends mix()
      *
      * @type {*}
      */
-    paramDefaultValue;
+    #paramDefaultValue;
 
     /**
      * Parameter's name
@@ -49,77 +46,79 @@ export default class ParameterMeta extends mix()
      *
      * @type {string|null}
      */
-    paramName;
+    #paramName;
 
     /**
      * ParameterMeta
      *
-     * @param {module:reflection-contracts.FunctionMeta|null} meta The function meta this parameter meta belongs to
-     * @param {*[]} types Datatype(s) of parameter
+     * @param {module:reflection-contracts.FunctionMeta|null} [meta] The function meta this parameter meta belongs to
+     * @param {*|*[]} [types] Datatype(s) of parameter
      * @param {*} [defaultValue] Evt. default value of parameter
-     * @param {string|null} name Evt. name of parameter
+     * @param {string|null} [name] Evt. name of parameter
      */
     constructor(
-        meta,
-        types,
+        meta = null,
+        types = [],
         defaultValue = undefined,
         name = null
     ) {
         super();
 
-        if (meta !== null) {
-            this.withParent(meta);
+        if (!Array.isArray(types)) {
+            types = [ types ];
         }
 
-        this.paramTypes = types;
-        this.paramDefaultValue = defaultValue;
-        this.paramName = name;
-    }
-
-    /**
-     * Set the parent meta function instance
-     *
-     * CAUTION: This meta SHOULD be frozen once the parent meta
-     * has been set!
-     *
-     * @see freeze
-     *
-     * @param {module:reflection-contracts.FunctionMeta} meta
-     *
-     * @return {ParameterMeta}
-     */
-    withParent(meta) {
-        this.metaParent = meta;
-
-        return this;
+        this.#metaParent = meta;
+        this.#paramTypes = types;
+        this.#paramDefaultValue = defaultValue;
+        this.#paramName = name;
     }
 
     /**
      * @inheritDoc
      */
     get parent() {
-        return this.metaParent;
+        return this.#metaParent;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    hasParent() {
+       return this.#metaParent !== null;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    withParent(meta) {
+        return new this(
+            meta,
+            this.types,
+            this.defaultValue,
+            this.name
+        );
     }
 
     /**
      * @inheritdoc
      */
     get name() {
-        return this.paramName;
+        return this.#paramName;
     }
 
     /**
      * @inheritdoc
      */
     get types() {
-        return this.paramTypes;
+        return this.#paramTypes;
     }
 
     /**
      * @inheritdoc
      */
     get defaultValue() {
-        return this.paramDefaultValue;
+        return this.#paramDefaultValue;
     }
 
     /**
@@ -148,14 +147,5 @@ export default class ParameterMeta extends mix()
      */
     hasDefaultValue() {
         return this.defaultValue !== undefined;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    freeze() {
-        Object.freeze(this);
-
-        return this;
     }
 }

@@ -29,15 +29,6 @@ export default class ClassMeta extends Meta {
     get methods() {}
 
     /**
-     * Class constructor method
-     *
-     * @public
-     *
-     * @return {module:reflection-contracts.MethodMeta|null}
-     */
-    get constructorMethod() {}
-
-    /**
      * Determine if class has methods
      *
      * @public
@@ -45,6 +36,25 @@ export default class ClassMeta extends Meta {
      * @return {boolean}
      */
     hasMethods() {}
+
+    /**
+     * Creates a new meta class instance with given
+     * list of meta methods
+     *
+     * @param {module:reflection-contracts.MethodMeta[]} [methods]
+     *
+     * @return {ClassMeta} New instance
+     */
+    withMethods(methods = []) {}
+
+    /**
+     * Class constructor method
+     *
+     * @public
+     *
+     * @return {module:reflection-contracts.MethodMeta|null}
+     */
+    get constructorMethod() {}
 
     /**
      * Determine if class has constructor method declared

@@ -18,7 +18,7 @@ export default class MethodMeta extends mix(FunctionMeta)
      *
      * @type {module:reflection-contracts.ClassMeta}
      */
-    metaParent;
+    #metaParent;
 
     /**
      * State whether meta is for a class constructor method
@@ -26,16 +26,20 @@ export default class MethodMeta extends mix(FunctionMeta)
      *
      * @type {boolean|undefined}
      */
-    definedMetaForConstructor;
+    #definedMetaForConstructor;
 
     /**
      * MethodMeta
      *
-     * @param {module:reflection-contracts.ClassMeta|null} meta The class meta that this method meta belongs to
      * @param {Function} target
      * @param {module:reflection-contracts.ParameterMeta[]} parameters
+     * @param {module:reflection-contracts.ClassMeta|null} [meta] The class meta that this method meta belongs to
      */
-    constructor(meta, target, parameters = []) {
+    constructor(
+        target,
+        parameters = [],
+        meta = null
+    ) {
         super(target, parameters);
 
         if (meta !== null) {
@@ -44,36 +48,47 @@ export default class MethodMeta extends mix(FunctionMeta)
     }
 
     /**
-     * Set the parent meta class instance
-     *
-     * CAUTION: This meta SHOULD be frozen once the parent meta
-     * has been set!
-     *
-     * @see freeze
-     *
-     * @param {module:reflection-contracts.ClassMeta} meta
-     *
-     * @return {MethodMeta}
+     * @inheritdoc
      */
-    withParent(meta) {
-        this.metaParent = meta;
-
-        return this;
+    get parent() {
+        return this.#metaParent;
     }
 
     /**
      * @inheritdoc
      */
-    get parent() {
-        return this.metaParent;
+    hasParent() {
+        return this.#metaParent !== null;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    withParent(meta) {
+        return new this(
+            this.target,
+            this.parameters,
+            meta
+        );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    withParameters(parameters = []) {
+        return new this(
+            this.target,
+            parameters,
+            this.parent
+        );
     }
 
     /**
      * @inheritdoc
      */
     isConstructor() {
-        if (this.definedMetaForConstructor !== undefined) {
-            return this.definedMetaForConstructor;
+        if (this.#definedMetaForConstructor !== undefined) {
+            return this.#definedMetaForConstructor;
         }
 
         const target = this.parent.target;
@@ -86,8 +101,8 @@ export default class MethodMeta extends mix(FunctionMeta)
             return false;
         }
 
-        this.definedMetaForConstructor = Reflect.has(proto, 'constructor') && proto.constructor === this.target;
+        this.#definedMetaForConstructor = Reflect.has(proto, 'constructor') && proto.constructor === this.target;
 
-        return this.definedMetaForConstructor;
+        return this.#definedMetaForConstructor;
     }
 }
