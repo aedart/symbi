@@ -86,7 +86,7 @@ export default class FunctionMeta extends mix()
     resolveParameters(parameters) {
         return parameters.map((param) => {
             if (param.hasOwnProperty('withParent') && typeof param.withParent === 'function') {
-                return param.withParent(this)
+                return param.withParent(this);
             }
 
             return param;

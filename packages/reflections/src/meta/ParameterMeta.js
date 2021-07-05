@@ -11,7 +11,6 @@ import MetaTarget from '../concerns/MetaTarget';
 export default class ParameterMeta extends mix()
     .inherit(Contract)
     .with(MetaTarget) {
-
     /**
      * Function meta that this parameter meta belongs to
      *
@@ -65,7 +64,7 @@ export default class ParameterMeta extends mix()
         super();
 
         if (!Array.isArray(types)) {
-            types = [ types ];
+            types = [types];
         }
 
         this.#metaParent = meta;
@@ -85,7 +84,7 @@ export default class ParameterMeta extends mix()
      * @inheritdoc
      */
     hasParent() {
-       return this.#metaParent !== null;
+        return this.#metaParent !== null;
     }
 
     /**

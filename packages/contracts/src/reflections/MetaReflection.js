@@ -29,7 +29,6 @@
  * @memberOf module:reflection-contracts
  */
 export default class MetaReflection {
-
     /**
      * Get meta reflections for given target
      *
